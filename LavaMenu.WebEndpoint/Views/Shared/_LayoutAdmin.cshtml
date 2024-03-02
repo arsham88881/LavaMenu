@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <title>Cafe lava | admin home</title>
+    <link rel="stylesheet" href="~/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/styles/bootstrap-icon.css" />
+    <link rel="stylesheet" href="~/styles/custom.css" />
+</head>
+<body class="bg-secondary text-light">
+    <div class="d-flex">
+        <!-- left navbar  -->
+        <div class="admin-menu min-width-admin flex-shrink-0 pt-3 pb-3 col-1 pe-3 border border-warning bg-warning vh-100 overflow-hidden position-fixed z-3"
+             id="admin-menu">
+            <a href="#"
+               class="admin-menu-buttun-grow d-flex align-items-center pb-3 ps-3 mb-4 link-body-emphasis text-decoration-none border-bottom border-danger text-truncate">
+                <span class="fs-5 fw-semibold">
+                    <i class="bi bi-list me-2 fs-2"></i>
+                    admin panel
+                </span>
+            </a>
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <button class="btn ms-1 d-inline-flex align-content-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#home-collapse"
+                            aria-expanded="false">
+                        <i class="bi bi-house-add-fill me-4 fs-2 admin-menu-buttun-grow"></i>
+                        Home
+                    </button>
+                    <div class="collapse" id="home-collapse" style="">
+                        <ul class="ms-4 list-unstyled fw-normal pb-1 small">
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Updates</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn ms-1 d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#dashboard-collapse"
+                            aria-expanded="false">
+                        <i class="bi bi-speedometer2 me-4 fs-2 admin-menu-buttun-grow"></i>
+                        Dashboard
+                    </button>
+                    <div class="collapse" id="dashboard-collapse">
+                        <ul class="ms-4 list-unstyled fw-normal pb-1 small">
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Weekly</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Monthly</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Annually</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn ms-1 d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#orders-collapse"
+                            aria-expanded="false">
+                        <i class="bi bi-border-style me-4 fs-2 admin-menu-buttun-grow"></i>
+                        Orders
+                    </button>
+                    <div class="collapse" id="orders-collapse">
+                        <ul class="ms-4 list-unstyled fw-normal pb-1 small">
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">New</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Processed</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Shipped</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Returned</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="border-top border-danger my-3"></li>
+                <li class="mb-1">
+                    <button class="btn ms-1 d-inline-flex align-items-center rounded border-0 collapsed"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#account-collapse"
+                            aria-expanded="false">
+                        <i class="bi bi-person-fill-gear me-4 fs-2 admin-menu-buttun-grow"></i>
+                        Account
+                    </button>
+                    <div class="collapse" id="account-collapse">
+                        <ul class="ms-4 list-unstyled fw-normal pb-1 small">
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#useraddBtn">New...</a>
+                            </li>
+                            <li>
+                                <a href="./adminProfileM.html"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Profiles management</a>
+                            </li>
+                            <!-- <li>
+                              <a
+                                href="#"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                >Settings</a
+                              >
+                            </li> -->
+                            <li>
+                                <a href="#"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sign out</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- cards contanier  -->
+        <div class="container-fluid pt-4 col-8 pb-3">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- add btn contanier  -->
+    <div class="btn-container custom-glass d-flex justify-content-end p-3">
+        <a href="#"
+           class="btn btn-danger mx-1"
+           data-bs-toggle="modal"
+           data-bs-target="#addBtnitem">
+            add item
+        </a>
+        <a href="#"
+           class="btn btn-danger mx-1"
+           data-bs-toggle="modal"
+           data-bs-target="#addBtnCategury">
+            add categury
+        </a>
+    </div>
+    <!-- Modal add item btn -->
+    <div class="modal fade"
+         id="addBtnitem"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        @await Component.InvokeAsync("AddItem");
+    </div>
+    <!--modal add categury-->
+    <div class="modal fade"
+         id="addBtnCategury"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        @await Component.InvokeAsync("AddCategury")
+    </div>
+    <!-- modal edit btn  -->
+    <div class="modal fade"
+         id="aditBtnModal"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-glass">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        اصلاح محصول
+                    </h1>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body custom-direction">
+                    <div class="mb-3 text-black">
+                        <label for="formFile" class="form-label">
+                            ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
+                            بارگزاری کنید<br />
+                            <a href="https://imagecompressor.com/" target="_blank">click this</a>
+                        </label>
+                        <input class="form-control" type="file" id="formFile" />
+                        <label for="formFile" class="mt-1">Default file input (PNG,JPEG)</label>
+                    </div>
+                    <select class="form-select form-select mb-3"
+                            aria-label="Large select example"
+                            required>
+                        <option selected>categurey</option>
+                        <option value="1">غذا</option>
+                        <option value="2">نوشیدنی سرد</option>
+                        <option value="3">نوشیدنی گرم</option>
+                    </select>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingInput"
+                               placeholder="عنوان"
+                               required />
+                        <label for="floatingInput">عنوان</label>
+                    </div>
+                    <div class="form-floating text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="discription"
+                               placeholder="توضیحات" />
+                        <label for="discription">توضیحات</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        لغو اصلاح
+                    </button>
+                    <button type="button" class="btn btn-warning">ثبت اصلاح</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal delete btn -->
+    <div class="modal fade"
+         id="deleteBtnModal"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-glass">
+                <div class="modal-header text-black">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">حذف محصول</h1>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-black custom-direction">
+                    از عمل حذف مطمئن هستید؟
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        لغو
+                    </button>
+                    <button type="button" class="btn btn-warning">حذف شود</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal add user  -->
+    <div class="modal fade"
+         id="useraddBtn"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-glass">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        Modal title
+                    </h1>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body custom-direction">
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingInput"
+                               placeholder="شماره تماس"
+                               required />
+                        <label for="floatingInput">شماره تماس</label>
+                    </div>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingInput"
+                               placeholder="نام "
+                               required />
+                        <label for="floatingInput">نام</label>
+                    </div>
+                    <select class="form-select form-select mb-3"
+                            aria-label="Large select example"
+                            required>
+                        <option>سطح دسترسی</option>
+                        <option value="1">admin</option>
+                        <option value="2">operator</option>
+                        <option value="3">customer</option>
+                    </select>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button" class="btn bg-danger" data-bs-dismiss="modal">
+                        لغو
+                    </button>
+                    <button type="button"
+                            class="btn btn-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#useraddBtn-authorization">
+                        ارسال پیام
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- authorization number with smtp dialog modal  -->
+    <div class="modal fade"
+         id="useraddBtn-authorization"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-glass">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        کد ارسالی را وارد کنید
+                    </h1>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body custom-direction">
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingInput"
+                               placeholder="کد"
+                               required />
+                        <label for="floatingInput">کد</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button"
+                            class="btn bg-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#useraddBtn">
+                        اصلاح شماره
+                    </button>
+                    <button type="button" class="btn btn-warning">تایید</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/script/bootstrap.bundle.min.js"></script>
+    <script src="~/script/main.js"></script>
+    <script src="~/script/ajaxCustome.js"></script>
+
+
+    @await RenderSectionAsync("scripts", required: false)
+</body>
+</html>

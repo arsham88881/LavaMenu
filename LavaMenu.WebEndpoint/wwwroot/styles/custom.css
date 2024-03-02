@@ -1,0 +1,131 @@
+/*
+=======================
+add font faces 
+=======================
+*/
+@font-face {
+  font-family: "vazir-bold";
+  src: url("../fonts/VazirFont/Vazir-Bold-FD-WOL.woff") format("woff"),
+    url("../fonts/VazirFont/Vazir-Bold-FD-WOL.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir-FD";
+  src: url("../fonts/VazirFont/Vazir-FD-WOL.woff") format("woff"),
+    url("../fonts/VazirFont/Vazir-FD-WOL.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir-light";
+  src: url("../fonts/VazirFont/Vazir-Light-FD-WOL.woff") format("woff"),
+    url("../fonts/VazirFont/Vazir-Light-FD-WOL.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir-medium";
+  src: url("../fonts/VazirFont/Vazir-Medium-FD-WOL.woff") format("woff"),
+    url("../fonts/VazirFont/Vazir-Medium-FD-WOL.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir-thin";
+  src: url("../fonts/VazirFont/Vazir-Thin-FD-WOL.woff") format("woff"),
+    url("../fonts/VazirFont/Vazir-Thin-FD-WOL.woff2") format("woff2");
+}
+
+/*
+=======================
+root configure
+=======================
+*/
+/* reset default in browsers */
+* {
+  box-sizing: border-box;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+:root {
+  --clr-gray: #676565;
+  --clr-darker-gray: #383838;
+  --clr-golden-light: #ffb703;
+  --clr-golden-dark: #d1913c;
+  --clr-darker-red: #93291e;
+  --clr-light-red: #ed213a;
+  --clr-text-white: #fdfbfb;
+
+  --ff-primary-bold: "vazir-bold", -apple-system, Roboto, "Open Sans",
+    sans-serif;
+  --ff-primary-medium: "vazir-medium", -apple-system, Roboto, "Open Sans",
+    sans-serif;
+  --ff-primary-FD: "vazir-FD", -apple-system, Roboto, "Open Sans", sans-serif;
+
+  --ff-primary-light: "vazir-light", -apple-system, Roboto, "Open Sans",
+    sans-serif;
+  --ff-primary-thin: "vazir-thin", -apple-system, Roboto, "Open Sans",
+    sans-serif;
+}
+
+/*
+=======================
+bootstrap importants
+=======================
+*/
+
+body {
+  font-family: var(--ff-primary-FD);
+}
+
+.active > .page-link{
+  background-color: rgb(255, 193, 7)!important;
+  border-color: #ed213a !important;
+}
+
+.cleartokenbtn{
+  width: 24px;
+  height: 24px;
+}
+/* .categury-item{
+  
+  display: inline-block;
+} */
+.bottom-navbar {
+  bottom: 1px;
+  height: 3rem;
+}
+.admin-menu {
+  width: 280px;
+  transition: width 0.5s ease-in-out;
+}
+
+/* .addButton-admin {
+  position: absolute;
+  top: 15px;
+  left: 75vw;
+  z-index: 2;
+} */
+.btn-container {
+  /* From https://css.glass */
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  border-radius: 0px;
+
+}
+.custom-glass{
+  background: rgba(237, 33, 58, 0.29);
+  /* border-radius: 16px; */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.7px);
+  -webkit-backdrop-filter: blur(5.7px);
+  border: 1px solid rgba(237, 33, 58, 1);
+}
+.custom-direction{
+  direction: rtl;
+}
+/*
+=======================
+js helper classes
+=======================
+*/
+
+.min-width-admin {
+  width: 3.75rem;
+}

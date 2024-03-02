@@ -1,0 +1,49 @@
+﻿
+@using LavaMenu.WebEndpoint.Models
+
+@{
+    Layout = null;
+}
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-white custom-glass">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                افزون دسته بندی جدید
+            </h1>
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+        </div>
+        <div class="modal-body custom-direction">
+            <div class="mb-3 text-black">
+                <label for="formFile" class="form-label">
+                    ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
+                    بارگزاری کنید<br />
+                    <a href="https://imagecompressor.com/" target="_blank">click this</a>
+                </label>
+                <input class="form-control" type="file" id="Image" accept="image/*"  />
+                <label class="mt-1">Default file input (PNG,JPEG)</label>
+
+                @*maintaine to this part*@
+
+            </div>
+            <div class="form-floating mb-3 text-black">
+                <input type="text"
+                       class="form-control"
+                       id="Name"
+                       placeholder="عنوان"
+                       required />
+                <label for="floatingInput">عنوان</label>
+            </div>
+        </div>
+        <div class="modal-footer ">
+            <button type="button"
+                    id="sendDataAddCategury"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal">
+                ذخیره
+            </button>
+        </div>
+    </div>
+</div>

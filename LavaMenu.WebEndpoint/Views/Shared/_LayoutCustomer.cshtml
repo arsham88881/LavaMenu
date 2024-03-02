@@ -1,0 +1,168 @@
+﻿
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cofe lava | @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/styles/bootstrap-icon.css" />
+    <link rel="stylesheet" href="~/styles/custom.css" />
+</head>
+<body class="bg-secondary text-light">
+    <div class="d-flex">
+        <!-- left navbar  -->
+        <div class="bg-black col-2 justify-content-center pt-3 pb-5 px-1">
+           @await Component.InvokeAsync("ShowCateguryCustomer")
+        </div>
+        <!-- cards container -->
+        <div class="container-fluid pt-4 pb-5">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- bottom navbar  -->
+    <div class="bottom-navbar btn-group position-fixed rounded w-100"
+         role="group"
+         aria-label="Basic radio toggle button group">
+        <input type="radio"
+               class="btn-check"
+               name="btnradio"
+               id="btnradio1"
+               autocomplete="off"
+               checked />
+        <label class="btn btn-warning" for="btnradio1">
+            <i class="bi bi-houses-fill fs-2"></i>
+        </label>
+
+        <input type="radio"
+               class="btn-check active"
+               name="btnradio"
+               id="btnradio2"
+               autocomplete="off" />
+        <label class="btn btn-warning" for="btnradio2">
+            <i class="bi bi-search fs-2"></i>
+        </label>
+
+        <input type="radio"
+               class="btn-check"
+               name="btnradio"
+               id="btnradio3"
+               autocomplete="off" />
+        <label class="btn btn-warning" for="btnradio3">
+            <i class="bi bi-bag-fill fs-2"></i>
+        </label>
+        <label class="btn btn-warning">
+            <span class="badge d-flex align-items-center p-1 pe-2 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-pill">
+                <a href="#" class="rounded-circle me-1 cleartokenbtn"><i class="bi bi-x-circle fs-3 text-warning-emphasis "></i></a>|
+                <span data-bs-toggle="modal"
+                      data-bs-target="#useraddBtn">MyName</span>
+            </span>
+        </label>
+    </div>
+    <!-- modal add user  -->
+    <div class="modal fade"
+         id="useraddBtn"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-glass">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        Modal title
+                    </h1>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body custom-direction">
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingInput"
+                               placeholder="شماره تماس"
+                               required />
+                        <label for="floatingInput">شماره تماس</label>
+                    </div>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingInput"
+                               placeholder="نام "
+                               required />
+                        <label for="floatingInput">نام</label>
+                    </div>
+                    <select class="form-select form-select mb-3"
+                            aria-label="Large select example"
+                            required>
+                        <option>سطح دسترسی</option>
+                        <option value="1">admin</option>
+                        <option value="2">operator</option>
+                        <option value="3">customer</option>
+                    </select>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button" class="btn bg-danger" data-bs-dismiss="modal">
+                        لغو
+                    </button>
+                    <button type="button"
+                            class="btn btn-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#useraddBtn-authorization">
+                        ارسال پیام
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- authorization number with smtp dialog modal  -->
+    <div class="modal fade"
+         id="useraddBtn-authorization"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custom-glass">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        کد ارسالی را وارد کنید
+                    </h1>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body custom-direction">
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="floatingInput"
+                               placeholder="کد"
+                               required />
+                        <label for="floatingInput">کد</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button"
+                            class="btn bg-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#useraddBtn">
+                        اصلاح شماره
+                    </button>
+                    <button type="button" class="btn btn-warning">تایید</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/script/bootstrap.bundle.min.js"></script>
+    <script src="~/script/main.js"></script>
+</body>
+</html>
