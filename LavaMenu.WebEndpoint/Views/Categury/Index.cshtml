@@ -1,0 +1,46 @@
+﻿@model LavaMenu.Application.Common.RequestDTO.AddCateguryRequestDTO
+
+@using LavaMenu.Application.Common.ResultDTO;
+
+@{
+    Layout = "_LayoutAdmin";
+    var result = ViewData["addCateguryResult"] as GlobalResultDTO;
+
+
+}
+
+<div class="card bg-warning" style="width: 24rem;">
+    <h5 class="card-header  text-white custom-glass">
+        افزون دسته بندی جدید
+    </h5>
+    <form id="addCateguryForm" asp-action="Index" method="post" asp-controller="Categury" enctype="multipart/form-data" >
+        <div class="card-body custom-direction ">
+
+            <div class="mb-3 text-black">
+                <label asp-for="Image" class="form-label">
+                    ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
+                    بارگزاری کنید<br />
+                    <a href="https://imagecompressor.com/" target="_blank">click this</a>
+                </label>
+                <input class="form-control" type="file" asp-for="Image" accept="image/*" />
+                <label class="mt-1">Default file input (PNG,JPEG)</label>
+            </div>
+            <div class="form-floating mb-3 text-black">
+                <input type="text"
+                       class="form-control"
+                       asp-for="Name"
+                       placeholder="عنوان"
+                       required />
+                <label asp-for="Name">عنوان</label>
+            </div>
+            <button type="submit"
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#showResultStatus" >
+                ذخیره
+            </button>
+        </div>
+    </form>
+</div>
+<!-- modal show result  -->
+@await Component.InvokeAsync("ShowGlobalResult", result);

@@ -1,7 +1,6 @@
 using LavaMenu.Application;
 using LavaMenu.Application.Application.Interfaces;
 using LavaMenu.Application.infrastructure.DBcontext;
-using LavaMenu.WebEndpoint.Controllers.MinimalApi;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 
@@ -41,7 +40,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Customer}/{action=Index}/{id?}");
-
-app.UseCateguryMinimalApi();
 
 app.Run();

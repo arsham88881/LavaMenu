@@ -147,36 +147,38 @@ namespace LavaMenu.Application.Common.File
         {
             try
             {
-                string folderLocation = @"images\ProductImages\";
-                var oploadFolderRoot = Path.Combine(_environment.WebRootPath, folderLocation);
-                if (!Directory.Exists(oploadFolderRoot))
+                if (file != null)
                 {
-                    Directory.CreateDirectory(oploadFolderRoot);
-                }
+                    string folderLocation = @"images\ProductImages\";
+                    var oploadFolderRoot = Path.Combine(_environment.WebRootPath, folderLocation);
+                    if (!Directory.Exists(oploadFolderRoot))
+                    {
+                        Directory.CreateDirectory(oploadFolderRoot);
+                    }
+                    if (file == null || file.Length == 0)
+                    {
+                        return new FileResultDTO()
+                        {
+                            FileAddress = null,
+                            IsSuccess = false,
+                        };
+                    }
 
-                if (file == null || file.Length == 0)
-                {
+                    string FileName = DateTime.Now.Ticks.ToString() + file.FileName;
+                    var filePath = Path.Combine(oploadFolderRoot, FileName);
+
+                    using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    _logger.Log(LogLevel.Information, $"successful add image => name: {FileName} , time : {DateTime.UtcNow}");
+
                     return new FileResultDTO()
                     {
-                        FileAddress = null,
-                        IsSuccess = false,
+                        FileAddress = folderLocation + FileName,
+                        IsSuccess = true,
                     };
                 }
-
-                string FileName = DateTime.Now.Ticks.ToString() + file.FileName;
-                var filePath = Path.Combine(oploadFolderRoot, FileName);
-
-                using (FileStream stream = new FileStream(filePath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-                _logger.Log(LogLevel.Information, $"successful add image => name: {FileName} , time : {DateTime.UtcNow}");
-
-                return new FileResultDTO()
-                {
-                    FileAddress = folderLocation + FileName,
-                    IsSuccess = true,
-                };
             }
             catch (Exception e)
             {

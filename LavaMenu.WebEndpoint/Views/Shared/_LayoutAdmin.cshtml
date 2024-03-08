@@ -12,80 +12,33 @@
 <body class="bg-secondary text-light">
     <div class="d-flex">
         <!-- left navbar  -->
-        <div class="admin-menu min-width-admin flex-shrink-0 pt-3 pb-3 col-1 pe-3 border border-warning bg-warning vh-100 overflow-hidden position-fixed z-3"
-             id="admin-menu">
-            <a href="#"
-               class="admin-menu-buttun-grow d-flex align-items-center pb-3 ps-3 mb-4 link-body-emphasis text-decoration-none border-bottom border-danger text-truncate">
-                <span class="fs-5 fw-semibold">
-                    <i class="bi bi-list me-2 fs-2"></i>
-                    admin panel
-                </span>
+        <div class="d-flex flex-column col-2 flex-shrink-0 z-3 bg-warning position-fixed h-100" style="width: 4.5rem;">
+            <a href="/" class="d-block p-3 link-body-emphasis text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
+                <svg class="bi pe-none" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                <span class="visually-hidden">Icon-only</span>
             </a>
-            <ul class="list-unstyled ps-0">
-                <li class="mb-1">
-                    <button class="btn ms-1 d-inline-flex align-content-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#home-collapse"
-                            aria-expanded="false">
-                        <i class="bi bi-house-add-fill me-4 fs-2 admin-menu-buttun-grow"></i>
-                        Home
-                    </button>
-                    <div class="collapse" id="home-collapse" style="">
-                        <ul class="ms-4 list-unstyled fw-normal pb-1 small">
-                            <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Updates</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a>
-                            </li>
-                        </ul>
-                    </div>
+            <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+                <li class="nav-item">
+                    <a href="#" class="nav-link bg-warning-subtle active py-3 border-bottom rounded-0" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Home" data-bs-original-title="Home">
+                        <i class="bi bi-house-add-fill text-black fs-2 "></i>
+                    </a>
                 </li>
-                <li class="mb-1">
-                    <button class="btn ms-1 d-inline-flex align-items-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#dashboard-collapse"
-                            aria-expanded="false">
-                        <i class="bi bi-speedometer2 me-4 fs-2 admin-menu-buttun-grow"></i>
-                        Dashboard
-                    </button>
-                    <div class="collapse" id="dashboard-collapse">
-                        <ul class="ms-4 list-unstyled fw-normal pb-1 small">
-                            <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Weekly</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Monthly</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Annually</a>
-                            </li>
-                        </ul>
-                    </div>
+                <li>
+                    <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Dashboard" data-bs-original-title="Dashboard">
+                        <i class="bi bi-speedometer2 text-black fs-2"></i>
+                    </a>
                 </li>
-                <li class="mb-1">
-                    <button class="btn ms-1 d-inline-flex align-items-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#orders-collapse"
-                            aria-expanded="false">
-                        <i class="bi bi-border-style me-4 fs-2 admin-menu-buttun-grow"></i>
-                        Orders
-                    </button>
-                    <div class="collapse" id="orders-collapse">
-                        <ul class="ms-4 list-unstyled fw-normal pb-1 small">
+                <li>
+                    <a href="#" class="nav-link py-3 border-bottom rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Orders" data-bs-original-title="Orders">
+                        <i class="bi bi-border-style text-black fs-2"></i>
+                    </a>
+                </li>
+                <li>
+                    <div class="btn-group dropend">
+                        <button type="button" class="dropdown-toggle nav-link py-3 border-bottom rounded-0" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-fill-gear text-black fs-2"></i>
+                        </button>
+                        <ul class="dropdown-menu text-center">
                             <li>
                                 <a href="#"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">New</a>
@@ -105,63 +58,57 @@
                         </ul>
                     </div>
                 </li>
-                <li class="border-top border-danger my-3"></li>
-                <li class="mb-1">
-                    <button class="btn ms-1 d-inline-flex align-items-center rounded border-0 collapsed"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#account-collapse"
-                            aria-expanded="false">
-                        <i class="bi bi-person-fill-gear me-4 fs-2 admin-menu-buttun-grow"></i>
-                        Account
-                    </button>
-                    <div class="collapse" id="account-collapse">
-                        <ul class="ms-4 list-unstyled fw-normal pb-1 small">
+                <li>
+                    <div class="btn-group dropend">
+                        <button type="button" class="dropdown-toggle nav-link py-3 border-bottom rounded-0" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-gear-wide-connected text-dark fs-2"></i>
+                        </button>
+                        <ul class="dropdown-menu text-center">
                             <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#useraddBtn">New...</a>
+                                <a asp-controller="Categury" asp-action="Index"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">add new categury </a>
                             </li>
                             <li>
-                                <a href="./adminProfileM.html"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Profiles management</a>
-                            </li>
-                            <!-- <li>
-                              <a
-                                href="#"
-                                class="link-body-emphasis d-inline-flex text-decoration-none rounded"
-                                >Settings</a
-                              >
-                            </li> -->
-                            <li>
                                 <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sign out</a>
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">add new item</a>
                             </li>
                         </ul>
                     </div>
                 </li>
             </ul>
+            <div class="dropdown border-top">
+                <a href="#" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small shadow">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
         </div>
         <!-- cards contanier  -->
-        <div class="container-fluid pt-4 col-8 pb-3">
+        <div class="container-fluid pt-4 col-8 justify-content-center  pb-3">
             @RenderBody()
         </div>
     </div>
     <!-- add btn contanier  -->
-    <div class="btn-container custom-glass d-flex justify-content-end p-3">
-        <a href="#"
-           class="btn btn-danger mx-1"
-           data-bs-toggle="modal"
-           data-bs-target="#addBtnitem">
-            add item
-        </a>
-        <a href="#"
-           class="btn btn-danger mx-1"
-           data-bs-toggle="modal"
-           data-bs-target="#addBtnCategury">
-            add categury
-        </a>
-    </div>
+    @*<div class="btn-container custom-glass d-flex justify-content-end p-3">
+            <a href="#"
+               class="btn btn-danger mx-1"
+               data-bs-toggle="modal"
+               data-bs-target="#addBtnitem">
+                add item
+            </a>
+            <a href="#"
+               class="btn btn-danger mx-1"
+               data-bs-toggle="modal"
+               data-bs-target="#addBtnCategury">
+                add categury
+            </a>
+        </div>*@
     <!-- Modal add item btn -->
     <div class="modal fade"
          id="addBtnitem"
@@ -172,16 +119,19 @@
          aria-hidden="true">
         @await Component.InvokeAsync("AddItem");
     </div>
-    <!--modal add categury-->
-    <div class="modal fade"
-         id="addBtnCategury"
+
+
+    @await Component.InvokeAsync("ShowGlobalResult")
+
+    @*<div class="modal fade"
+         id="showResultStatus"
          data-bs-backdrop="static"
          data-bs-keyboard="false"
          tabindex="-1"
          aria-labelledby="staticBackdropLabel"
          aria-hidden="true">
-        @await Component.InvokeAsync("AddCategury")
-    </div>
+    </div>*@
+
     <!-- modal edit btn  -->
     <div class="modal fade"
          id="aditBtnModal"
@@ -380,7 +330,7 @@
 
     <script src="~/script/bootstrap.bundle.min.js"></script>
     <script src="~/script/main.js"></script>
-    <script src="~/script/ajaxCustome.js"></script>
+
 
 
     @await RenderSectionAsync("scripts", required: false)

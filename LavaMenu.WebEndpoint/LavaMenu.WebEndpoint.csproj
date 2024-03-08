@@ -7,16 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\script\ajaxCustome.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="TagHelpers\" />
     <Folder Include="wwwroot\lib\BootstrapV5.3\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\script\ajaxCustome.js" />
   </ItemGroup>
 
   <ItemGroup>

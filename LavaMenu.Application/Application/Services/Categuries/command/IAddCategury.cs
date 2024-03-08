@@ -37,7 +37,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                 {
                     CateguryName = request.Name
                 };
-                if (_db.Categories.Contains(categury, new CateguryComparer()))
+                if (_db.Categories.AsEnumerable().Contains(categury, new CateguryComparer()))
                 {
                     return await Task<GlobalResultDTO>.FromResult(
                         new GlobalResultDTO() { IsSuccess = false, Message = "این دسته بندی موجود است" });
