@@ -18,5 +18,7 @@ async function main() {
     //addCateguryForm.addEventListener("submit", (e) => {
     //    e.preventDefault();
     //});
+
+    
 }
 document.addEventListener("DOMContentLoaded", main);

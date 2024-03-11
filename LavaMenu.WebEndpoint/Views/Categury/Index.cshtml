@@ -1,10 +1,10 @@
-﻿@model LavaMenu.Application.Common.RequestDTO.AddCateguryRequestDTO
+﻿@*@model LavaMenu.Application.Common.RequestDTO.AddCateguryRequestDTO*@
 
-@using LavaMenu.Application.Common.ResultDTO;
+@*@using LavaMenu.Application.Common.ResultDTO;*@
 
 @{
     Layout = "_LayoutAdmin";
-    var result = ViewData["addCateguryResult"] as GlobalResultDTO;
+    //var result = ViewData["addCateguryResult"] as GlobalResultDTO;
 
 
 }
@@ -13,34 +13,57 @@
     <h5 class="card-header  text-white custom-glass">
         افزون دسته بندی جدید
     </h5>
-    <form id="addCateguryForm" asp-action="Index" method="post" asp-controller="Categury" enctype="multipart/form-data" >
+    <form id="addCateguryForm" enctype="multipart/form-data">
         <div class="card-body custom-direction ">
 
             <div class="mb-3 text-black">
-                <label asp-for="Image" class="form-label">
+                <label for="Image" class="form-label">
                     ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
                     بارگزاری کنید<br />
                     <a href="https://imagecompressor.com/" target="_blank">click this</a>
                 </label>
-                <input class="form-control" type="file" asp-for="Image" accept="image/*" />
+                <input class="form-control" type="file" id="Image" accept="image/*" />
                 <label class="mt-1">Default file input (PNG,JPEG)</label>
             </div>
             <div class="form-floating mb-3 text-black">
                 <input type="text"
                        class="form-control"
-                       asp-for="Name"
+                       id="Name"
                        placeholder="عنوان"
                        required />
-                <label asp-for="Name">عنوان</label>
+                <label for="Name">عنوان</label>
             </div>
             <button type="submit"
-                    class="btn btn-danger"
-                    data-bs-toggle="modal"
-                    data-bs-target="#showResultStatus" >
+                    class="btn btn-danger">
                 ذخیره
             </button>
         </div>
     </form>
 </div>
 <!-- modal show result  -->
-@await Component.InvokeAsync("ShowGlobalResult", result);
+@*@await Component.InvokeAsync("ShowGlobalResult", result);*@
+
+<script>
+    const addCateguryForm = document.querySelector("#addCateguryForm");
+    const ImgAddCategury = document.querySelector("#Image");
+    const NameAddCategury = document.getElementById("Name");
+
+    addCateguryForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        var formdata = new FormData();
+        var addcateguryData = {
+            Name: NameAddCategury.Value,
+            ImageAlt: NameAddCategury.Value
+        };
+        formdata.append("Image", ImgAddCategury.files[0]);
+        formdata.append("otherData", JSON.stringify(addcateguryData));
+
+        //var request = { Image: ImgAddCategury.Value, Name: NameAddCategury.Value };
+        const url = "/categury/Index";
+        var result = await( await fetch(url, {
+            method: "post",
+            body: formdata
+        })).json();
+        console.log(result);
+    })
+</script>

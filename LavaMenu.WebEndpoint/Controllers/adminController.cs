@@ -10,10 +10,5 @@ namespace LavaMenu.WebEndpoint.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult Index(AddProductModel model)
-        //{
-        //    return View();
-        //}
     }
 }
