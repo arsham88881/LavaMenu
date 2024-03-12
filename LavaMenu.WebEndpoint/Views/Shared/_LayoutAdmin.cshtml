@@ -65,7 +65,7 @@
                         </button>
                         <ul class="dropdown-menu text-center">
                             <li>
-                                <a asp-controller="Categury" asp-action="Index"
+                                <a asp-controller="Categury" asp-action="AddCategury"
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">add new categury </a>
                             </li>
                             <li>
@@ -94,21 +94,10 @@
             @RenderBody()
         </div>
     </div>
-    <!-- add btn contanier  -->
-    @*<div class="btn-container custom-glass d-flex justify-content-end p-3">
-            <a href="#"
-               class="btn btn-danger mx-1"
-               data-bs-toggle="modal"
-               data-bs-target="#addBtnitem">
-                add item
-            </a>
-            <a href="#"
-               class="btn btn-danger mx-1"
-               data-bs-toggle="modal"
-               data-bs-target="#addBtnCategury">
-                add categury
-            </a>
-        </div>*@
+    <!-- live alert container-->
+    <div id="liveAlertPlaceholder" class="position-fixed  start-50 translate-middle-x">
+       
+    </div>
     <!-- Modal add item btn -->
     <div class="modal fade"
          id="addBtnitem"
@@ -316,9 +305,9 @@
         </div>
     </div>
 
-    <script src="~/script/bootstrap.bundle.min.js"></script>
-    <script src="~/script/main.js"></script>
-    
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/main.js"></script>
+
 
 
     @await RenderSectionAsync("scripts", required: false)

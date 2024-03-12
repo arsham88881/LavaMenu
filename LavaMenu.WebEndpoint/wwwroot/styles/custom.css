@@ -120,12 +120,14 @@ body {
 .custom-direction{
   direction: rtl;
 }
+#liveAlertPlaceholder{
+    top:20px;
+}
 /*
 =======================
 js helper classes
 =======================
 */
-
 .min-width-admin {
-  width: 3.75rem;
+    width: 3.75rem;
 }

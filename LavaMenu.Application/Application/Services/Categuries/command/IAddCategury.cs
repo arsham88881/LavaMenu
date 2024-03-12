@@ -1,4 +1,5 @@
 ﻿using LavaMenu.Application.Application.Interfaces;
+using LavaMenu.Application.Common.constConfigure;
 using LavaMenu.Application.Common.File;
 using LavaMenu.Application.Common.RequestDTO;
 using LavaMenu.Application.Common.ResultDTO;
@@ -40,7 +41,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                 if (_db.Categories.AsEnumerable().Contains(categury, new CateguryComparer()))
                 {
                     return await Task<GlobalResultDTO>.FromResult(
-                        new GlobalResultDTO() { IsSuccess = false, Message = "این دسته بندی موجود است" });
+                        new GlobalResultDTO() { IsSuccess = false, Message = "این دسته بندی موجود است", Type = AlertType.Info });
                 }
                 var loadFileResult = await Task<FileResultDTO>.FromResult(_WorkFile.UploadFile(request.Image));
 
@@ -52,7 +53,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                 _db.Categories.Add(categury);
                 await _db.SaveChangesAsync();
                 return await Task<GlobalResultDTO>.FromResult(
-                        new GlobalResultDTO() { IsSuccess = true, Message = "دسته بندی با موفقیت ثبت شد" });
+                        new GlobalResultDTO() { IsSuccess = true, Message = "دسته بندی با موفقیت ثبت شد", Type = AlertType.success });
 
 
             }
@@ -62,7 +63,9 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                 return await Task<GlobalResultDTO>.FromResult(new GlobalResultDTO()
                 {
                     IsSuccess = false,
-                    Message = "دسته بندی با موفقیت ثبت نشد"
+                    Message = "دسته بندی با موفقیت ثبت نشد",
+                    Type = AlertType.Error
+
                 });
             }
 
