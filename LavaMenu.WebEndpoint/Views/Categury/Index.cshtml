@@ -44,22 +44,22 @@
 @*@await Component.InvokeAsync("ShowGlobalResult", result);*@
 
 <script>
-    const addCateguryForm = document.querySelector("#addCateguryForm");
-    const ImgAddCategury = document.querySelector("#Image");
-    const NameAddCategury = document.getElementById("Name");
+    const addCateguryForm = document.querySelector('#addCateguryForm');
+    const ImgAddCategury = document.querySelector('#Image');
+    const NameAddCategury = document.querySelector('#Name');
 
     addCateguryForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         var formdata = new FormData();
-        var addcateguryData = {
-            Name: NameAddCategury.Value,
-            ImageAlt: NameAddCategury.Value
-        };
+        let addcateguryData = {
+            Name: NameAddCategury.value,
+            ImageAlt: NameAddCategury.value
+        }
         formdata.append("Image", ImgAddCategury.files[0]);
-        formdata.append("otherData", JSON.stringify(addcateguryData));
+        formdata.append("otherdata",JSON.stringify(addcateguryData));
 
         //var request = { Image: ImgAddCategury.Value, Name: NameAddCategury.Value };
-        const url = "/categury/Index";
+        const url = "/categury/index";
         var result = await( await fetch(url, {
             method: "post",
             body: formdata

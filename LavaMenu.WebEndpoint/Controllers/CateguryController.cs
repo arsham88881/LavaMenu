@@ -3,6 +3,9 @@ using LavaMenu.Application.Common.RequestDTO;
 using LavaMenu.Application.Common.ResultDTO;
 using LavaMenu.WebEndpoint.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
+
 
 namespace LavaMenu.WebEndpoint.Controllers
 {
@@ -20,20 +23,21 @@ namespace LavaMenu.WebEndpoint.Controllers
 
             return View();
         }
-        [Route("/categury/Index")]
+        //[Route("/categury/Index")]
         [HttpPost]
-        public async Task<ActionResult<GlobalResultDTO>> Index(addCateguryModel otherData , IFormFile Image)
+        public async Task<ActionResult<GlobalResultDTO>> Index(string name , IFormFile Image)
         {
-            int count = Request.Form.Files.Count;  ///count is ziro
-            //IFormFile image = Request.Form.Files[0]; //get exception because count of file is ziro
+            int count = Request.Form.Files.Count; ///count is ziro
+
             var request = new AddCateguryRequestDTO()
             {
-                Name = otherData.Name,
+                Name = name,
                 Image = Image
             };
             var result = _addCategury.Excute(request);
 
             return await Task.FromResult(result.Result);
         }
+
     }
 }
