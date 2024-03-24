@@ -9,7 +9,7 @@ namespace LavaMenu.Application.Common.ResultDTO
 {
     public record GlobalResultDTO<T>
     {
-        public T Value { get; set; }
+        public T? Value { get; set; } 
         public string Message { get; set; }
         public string Type { get; set; }
         public bool IsSuccess { get; set; }

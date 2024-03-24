@@ -1,0 +1,69 @@
+﻿
+@model List<LavaMenu.WebEndpoint.Models.ShowCateguryModel>
+
+@{
+    Layout = "_LayoutAdmin";
+
+    int counter = Model.Count - 1;
+    int? index;
+    string? Existance;
+}
+
+
+<div class="table-container table-responsive">
+    <table class="table table-striped table-hover text-center">
+        <thead class="table-warning">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">تصویر</th>
+                <th scope="col">اسم</th>
+                <th scope="col">وضعیت</th>
+                <th scope="colgroup" colspan="3">
+                    عملیات ها
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @if (item.IsAvailable) { Existance = "فعال"; } else { Existance = "غیرفعال"; }
+                { index = Model.Count - counter; }
+                <tr>
+                    <th scope="row">@index</th>
+                    <td>‌ <img src="~/@item.SrcCategury" alt="@item.CateguryName" width="100" height="100" loading="lazy"> </td>
+                    <td>@item.CateguryName</td>
+                    <td>@Existance</td>
+                    <td>
+                        <button type="button" class="btn btn-danger" data-Id="@item.CateguryId">فعال</button>
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-warning">تصحیح</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger">حذف</button>
+                    </td>
+                </tr>
+                { counter -= 1; }
+            }
+            @*
+                <tr>
+                    <th scope="row">2s</th>
+                    <td>‌ <img src="~/images/ProductImages/638458680366292203arsham_fadaie_Anonymous_hackers.png" alt="test" width="100" height="100"> </td>
+                    <td>شیک ها</td>
+                    <td>غیر فعال</td>
+                    <td>
+                        <button type="button" class="btn btn-danger">فعال</button>
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-warning">تصحیح</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger">حذف</button>
+                    </td>
+                </tr>
+            *@
+        </tbody>
+    </table>
+</div>

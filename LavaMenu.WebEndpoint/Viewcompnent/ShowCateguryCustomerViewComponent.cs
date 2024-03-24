@@ -1,4 +1,5 @@
 ﻿using LavaMenu.Application.Application.Services.Categuries.query;
+using LavaMenu.Application.Domain.Entitys;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LavaMenu.WebEndpoint.Viewcompnent
@@ -14,7 +15,7 @@ namespace LavaMenu.WebEndpoint.Viewcompnent
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-            var list = _getAllCategureis.Excute();
+            var list = _getAllCategureis.Excute().Where(p => p.IsAvailable == true).ToList<ProductCategury>();
             return await Task.FromResult((IViewComponentResult)View("ShowCateguryCustomer", list));
         }
     }
