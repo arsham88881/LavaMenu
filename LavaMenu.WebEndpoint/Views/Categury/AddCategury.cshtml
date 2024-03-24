@@ -1,37 +1,39 @@
 ﻿
 @{
     Layout = "_LayoutAdmin";
- 
+
 }
 
-<div class="card bg-warning" style="width: 24rem;">
-    <h5 class="card-header  text-white custom-glass">
-        افزون دسته بندی جدید
-    </h5>
-    <form id="addCateguryForm" enctype="multipart/form-data">
-        <div class="card-body custom-direction ">
+<div class=" ms-5 ms-sm-0 form-container ">
+    <div class="card bg-warning" style="width: 24rem;">
+        <h5 class="card-header  text-white custom-glass">
+            افزون دسته بندی جدید
+        </h5>
+        <form id="addCateguryForm" enctype="multipart/form-data">
+            <div class="card-body custom-direction ">
 
-            <div class="mb-3 text-black">
-                <label for="Image" class="form-label">
-                    ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
-                    بارگزاری کنید<br />
-                    <a href="https://imagecompressor.com/" target="_blank">click this</a>
-                </label>
-                <input class="form-control" type="file" id="Image" accept="image/*" />
-                <label class="mt-1">Default file input (PNG,JPEG)</label>
+                <div class="mb-3 text-black">
+                    <label for="Image" class="form-label">
+                        ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
+                        بارگزاری کنید<br />
+                        <a href="https://imagecompressor.com/" target="_blank">click this</a>
+                    </label>
+                    <input class="form-control" type="file" id="Image" accept="image/*" />
+                    <label class="mt-1">Default file input (PNG,JPEG)</label>
+                </div>
+                <div class="form-floating mb-3 text-black">
+                    <input type="text"
+                           class="form-control"
+                           id="Name"
+                           placeholder="عنوان"
+                           required />
+                    <label for="Name">عنوان</label>
+                </div>
+                <button type="submit"
+                        class="btn btn-danger">
+                    ذخیره
+                </button>
             </div>
-            <div class="form-floating mb-3 text-black">
-                <input type="text"
-                       class="form-control"
-                       id="Name"
-                       placeholder="عنوان"
-                       required />
-                <label for="Name">عنوان</label>
-            </div>
-            <button type="submit"
-                    class="btn btn-danger">
-                ذخیره
-            </button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/styles/custom.css" />
 </head>
 <body class="bg-secondary text-light">
-    <div class="d-flex">
+    <div >
         <!-- left navbar  -->
         <div class="d-flex flex-column col-2 flex-shrink-0 z-3 bg-warning position-fixed h-100" style="width: 4.5rem;">
             <a href="/" class="d-block p-3 link-body-emphasis text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
@@ -90,7 +90,7 @@
             </div>
         </div>
         <!-- cards contanier  -->
-        <div class="container-fluid pt-4 col-8 justify-content-center  pb-3">
+        <div class=" pt-4 col-10 pb-3 w-100 d-flex justify-content-center flex-nowrap" >
             @RenderBody()
         </div>
     </div>
@@ -306,6 +306,7 @@
     </div>
 
     <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/main.js"></script>
 
 

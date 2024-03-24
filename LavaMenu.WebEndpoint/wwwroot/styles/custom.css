@@ -101,13 +101,17 @@ body {
   left: 75vw;
   z-index: 2;
 } */
-.btn-container {
-  /* From https://css.glass */
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  border-radius: 0px;
 
+.table-container, .form-container{
+    margin-top: 60px;
+}
+
+.btn-container {
+    /* From https://css.glass */
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    border-radius: 0px;
 }
 .custom-glass{
   background: rgba(237, 33, 58, 0.29);

@@ -19,6 +19,7 @@ namespace LavaMenu.Application
             services.Add(new ServiceDescriptor(typeof(IAddProductItem), typeof(AddProductItem), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IAddCategury), typeof(AddCategury), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IGetAllCategureis), typeof(GetAllCategury), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IChangeCateguryStatus),typeof(ChangeCateguryStatus), ServiceLifetime.Scoped));    
         }
     }
 }

@@ -1,43 +1,51 @@
-function main() {
 
-    const addCateguryForm = document.querySelector('#addCateguryForm');
-    const ImgAddCategury = document.querySelector('#Image');
-    const NameAddCategury = document.querySelector('#Name');
-    const LiveAlertContainer = document.querySelector('#liveAlertPlaceholder');
+function appendLiveAlert(type, message) {
+    const wrapper = $('<div> </div>');
 
-    addCateguryForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        var formdata = new FormData();
+    wrapper.html([
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join(''));
 
-        formdata.append("Image", ImgAddCategury.files[0]);
-        formdata.append("name", NameAddCategury.value);
-
-        const url = "/categury";
-        var result = await (await fetch(url, {
-            method: "post",
-            body: formdata
-        })).json();
-        console.log(result);
-
-        appendLiveAlert(result.Type, result.message);
-
-        setTimeout(() => {
-            window.location.href = "/admin";
-        },2500);
-    
-
-    });
-    function appendLiveAlert(type, message) {
-        const wrapper = document.createElement('div')
-        wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            `   <div>${message}</div>`,
-            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-            '</div>'
-        ].join('')
-
-        LiveAlertContainer.append(wrapper)
-    }
-
+    $('#liveAlertPlaceholder').append(wrapper);
 }
-document.addEventListener("DOMContentLoaded", main);
+
+$(document).ready(function () {
+
+    $('#addCateguryForm').on("submit", async function (e) {
+        e.preventDefault();
+
+        const categuryUrl = "/categury/AddCategury";
+        const ImgAddCategury = document.querySelector('#Image');
+
+        var formdata = new FormData();
+        formdata.append("Image", ImgAddCategury.files[0]);
+        formdata.append("name", $('#Name').val());
+
+        var addCateguryRequest = $.ajax({
+            url: categuryUrl,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data: formdata,
+            success: function (result) {
+
+                console.log(result);
+                appendLiveAlert(result.type, result.message);
+
+                if (result.isSuccess) {
+                    setTimeout(() => {
+                        window.location.href = "/admin/Categury";
+                    }, 2500);
+                }
+            },
+            error: function (xhr, status, strmessage) {
+                console.log(`status request:  ${status} , str message: ${strmessage}`);
+            }
+        });
+        addCateguryRequest.done(function () { })
+    });
+
+})

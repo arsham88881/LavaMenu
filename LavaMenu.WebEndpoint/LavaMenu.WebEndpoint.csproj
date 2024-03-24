@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="TagHelpers\" />
-    <Folder Include="wwwroot\lib\BootstrapV5.3\" />
   </ItemGroup>
 
   <ItemGroup>
