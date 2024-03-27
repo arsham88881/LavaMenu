@@ -10,7 +10,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
 {
     public interface IChangeCateguryStatus
     {
-        public Task<bool> Excute(long categuryID);
+        public Task<bool> Excute(string categuryID);
     }
     public class ChangeCateguryStatus : IChangeCateguryStatus
     {
@@ -21,15 +21,23 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
             _db = db;
             _logger = logger;
         }
-        public async Task<bool> Excute(long categuryID)
+        public async Task<bool> Excute(string categuryID)
         {
 
             try
             {
-                var item = _db.Categories.Where(p => p.CateguryId == categuryID).FirstOrDefault();
+                if (string.IsNullOrWhiteSpace(categuryID))
+                {
+                    return await Task.FromResult(false);
+                }
+
+                long ID = Convert.ToInt64(categuryID);
+
+                var item = _db.Categories.Where(p => p.CateguryId == ID).FirstOrDefault();
                 if (item != null)
                 {
                     item.IsAvailable = !item.IsAvailable;
+                    _db.SaveChanges();
 
                     _logger.Log(LogLevel.Information, $"change status successfully for categuryName : {item.CateguryName}");
                     return await Task.FromResult(true);

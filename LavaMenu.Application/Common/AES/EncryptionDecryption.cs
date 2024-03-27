@@ -18,7 +18,7 @@ namespace LavaMenu.Application.Common.AES
         //generate key and iv with secret key string for start working with AES algorithem
         private static (byte[] key, byte[] iv) Generate(string secretKey)
         {
-           
+
             // Generate a key using SHA256 hash function 
             byte[] CryptKey = new byte[16];
             using (SHA256 sha256 = SHA256.Create())
@@ -33,13 +33,13 @@ namespace LavaMenu.Application.Common.AES
             {
                 byte[] hash = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(secretKey));
                 Array.Copy(hash, CryptIv, 16);
-                 
+
             }
             return (CryptKey, CryptIv);
         }
-        public static string EncryptStringAES(this string plainText,string secretkey)
+        public static string EncryptStringAES(this string plainText, string secretkey)
         {
-           var KeyAndIv = Generate(secretkey);
+            var KeyAndIv = Generate(secretkey);
 
             byte[] encrypted;
 
@@ -68,7 +68,7 @@ namespace LavaMenu.Application.Common.AES
             return Convert.ToBase64String(encrypted); //convert byte[] to string for sansor complexity
         }
 
-        public static string DecryptStringAES(this string cipherText , string secretkey)
+        public static string DecryptStringAES(this string cipherText, string secretkey)
         {
 
             var KeyAndIv = Generate(secretkey);
@@ -80,7 +80,7 @@ namespace LavaMenu.Application.Common.AES
             // Create an Aes object with the specified key and IV.
             using (Aes aes = Aes.Create())
             {
-                aes.Key = KeyAndIv.key ;
+                aes.Key = KeyAndIv.key;
                 aes.IV = KeyAndIv.iv;
 
                 // Create a new MemoryStream object to contain the decrypted bytes.
@@ -101,6 +101,6 @@ namespace LavaMenu.Application.Common.AES
             return decrypted;
         }
 
-        
+
     }
 }

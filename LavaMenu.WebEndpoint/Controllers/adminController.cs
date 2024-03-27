@@ -23,19 +23,18 @@ namespace LavaMenu.WebEndpoint.Controllers
         {
             //var configure = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
 
-            var list = _allCategureis.Excute();
-            List<ShowCateguryModel> showList = new List<ShowCateguryModel>();
-            foreach (var item in list)
-            {
-                showList.Add(new ShowCateguryModel()
-                {
-                    CateguryId = item.CateguryId.ToString().EncryptStringAES(_configure["secretKeyAES"]),
-                    CateguryName = item.CateguryName,
-                    SrcCategury = item.SrcCategury
-                });
-            }
-
-            return View(showList);
+            //var list = _allCategureis.Excute();
+            //List<ShowCateguryModel> showList = new List<ShowCateguryModel>();
+            //foreach (var item in list)
+            //{
+            //    showList.Add(new ShowCateguryModel()
+            //    {
+            //        CateguryId = item.CateguryId.ToString().EncryptStringAES(_configure["secretKeyAES"]),
+            //        CateguryName = item.CateguryName,
+            //        SrcCategury = item.SrcCategury
+            //    });
+            //}
+            return View();
         }
     }
 }
