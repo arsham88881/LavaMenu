@@ -34,25 +34,28 @@ function createCateguryItemAdminPanel(result) {
             `<td> <button type="button" class="btn btn-warning">تصحیح</button> </td>`,
             `<td> <button type="button" class="btn btn-danger">حذف</button> </td>`
         ].join(''));
+        $("#TbodyCateguryAdmin").append(TableRow);
 
-        $(".activate-categury").on("click", function () {
-
+        $(TableRow).on("click", "button.activate-categury", function () {
             var id = $(this).parent().parent().attr("data-id");
-            var datas = new FormData();
-            datas.append("ID", id);
-            
-            const changeCateguryStatusUrl = `/categury/ChangeStatus`;
+
+            //const changeCateguryStatusUrl = `/api/categury/ChangeStatus?ID=${id}`;
+
+            const changeCateguryStatusUrl = `/api/categury/ChangeStatus`;
+
+            //var datas = new FormData();
+            //datas.append("ID", id);
 
             var request = $.ajax({
                 url: changeCateguryStatusUrl,
-                type: "GET",
-                //headers: heading,
-                processData: false,
-                contentType: false,
-                //contentType: "multipart/form-data",
-                data: datas,
+                type: "POST",
+                //processData: false,
+                contentType: "application/json",
+                data: JSON.stringify(id),
                 success: function (result) {
+
                     if (result) {
+                        console.log(result);  //I go 4 time in loop
                         GetAllCateguryAdminPanel();
                     }
                 },
@@ -63,16 +66,45 @@ function createCateguryItemAdminPanel(result) {
             });
             request.done(function () { });
         })
-
-        $("#TbodyCateguryAdmin").append(TableRow);
     }
+
+}
+/// activate categury function 
+function activateCategury() {
+    $(".activate-categury").on("click", function () {
+
+        var id = $(this).parent().parent().attr("data-id");
+
+        const changeCateguryStatusUrl = `/api/categury/ChangeStatus?ID=${id}`;
+
+        var request = $.ajax({
+            url: changeCateguryStatusUrl,
+            type: "GET",
+            processData: false,
+            contentType: false,
+            success: function (result) {
+
+                if (result) {
+                    console.log(result);  //I go 4 time in loop
+                    //GetAllCateguryAdminPanel();
+                }
+            },
+            error: function (xhr, status, strMessage) {
+                console.log(`status request:  ${status} , str message: ${strMessage}`);
+            }
+
+        });
+        request.done(function () { });
+    })
+
+
 
 }
 /// list categuries on admin panel
 function GetAllCateguryAdminPanel() {
 
-    const GetAllCateguryUrl = "/categury/showallcategury";
-
+    const GetAllCateguryUrl = "/api/categury/GetAllCategury";
+    $("#TbodyCateguryAdmin").empty();
     var request = $.ajax({
         url: GetAllCateguryUrl,
         type: "GET",
@@ -93,10 +125,10 @@ function GetAllCateguryAdminPanel() {
 $(document).ready(function () {
 
     /// add categury concept
-    $('#addCategurySubmit').on("click", async function () {
-        //e.preventDefault();
+    $('#addCategurySubmit').on("submit", async function (e) {
+        e.preventDefault();
 
-        const categuryUrl = "/categury/AddCategury";
+        const categuryUrl = "/api/categury/AddCategury";
         const ImgAddCategury = document.querySelector('#AddCateguryImage');
 
         var formdata = new FormData();
@@ -111,7 +143,7 @@ $(document).ready(function () {
             data: formdata,
             success: function (result) {
 
-                console.log(result);
+               // console.log(result);
                 appendLiveAlert(result.type, result.message);
 
                 //if (result.isSuccess) {

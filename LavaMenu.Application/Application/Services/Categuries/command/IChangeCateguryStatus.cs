@@ -33,10 +33,11 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
 
                 long ID = Convert.ToInt64(categuryID);
 
-                var item = _db.Categories.Where(p => p.CateguryId == ID).FirstOrDefault();
+                var item = _db.Categories.Find(ID);
                 if (item != null)
                 {
                     item.IsAvailable = !item.IsAvailable;
+
                     _db.SaveChanges();
 
                     _logger.Log(LogLevel.Information, $"change status successfully for categuryName : {item.CateguryName}");

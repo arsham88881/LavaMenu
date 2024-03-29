@@ -15,36 +15,35 @@ using System.Text.Json;
 namespace LavaMenu.WebEndpoint.Controllers
 {
 
-    //[Route("/[Controller]")]
-    public class CateguryController : Controller
+    [ApiController]
+    [Route("api/[Controller]/[action]")]
+    public class CateguryController : ControllerBase
     {
         private readonly IAddCategury _addCategury;
         private readonly IChangeCateguryStatus _changeStatus;
         private readonly IGetAllCategureis _allCategureis;
         private readonly IConfiguration _configure;
 
-        public CateguryController(IAddCategury addCategury, IChangeCateguryStatus changeStatus , IGetAllCategureis allCategureis, IConfiguration configure)
+        public CateguryController(IAddCategury addCategury, IChangeCateguryStatus changeStatus, IGetAllCategureis allCategureis, IConfiguration configure)
         {
             _addCategury = addCategury;
             _allCategureis = allCategureis;
             _changeStatus = changeStatus;
             _configure = configure;
         }
-        //[HttpGet("/{ID}")]
-        //[Route("/[controller]/[action]/{ID}")]
 
-        [HttpGet]
-        public async Task<ActionResult<string>> ChangeStatus(string ID)
+        /// post:  api/Categury/ChangeStatus
+        [HttpPost]
+        public async Task<bool> ChangeStatus([FromBody]string ID)
         {
-            //var result = _changeStatus.Excute(ID.DecryptStringAES(_configure["secretKeyAES"]));
+            var result = await  _changeStatus.Excute(ID.DecryptStringAES(_configure["secretKeyAES"]));
 
-            //return await Task.FromResult(result.Result); //bool return
+            return result; //bool return
 
-            return await Task.FromResult(ID.DecryptStringAES(_configure["secretKeyAES"]));
         }
-        /// get:  Categury/showAllCategury
+        /// get:  api/Categury/showAllCategury
         [HttpGet]
-        public IActionResult showAllCategury()
+        public async Task<List<ShowCateguryModel>> GetAllCategury()
         {
             var list = _allCategureis.Excute();
             List<ShowCateguryModel> showList = new List<ShowCateguryModel>();
@@ -59,10 +58,11 @@ namespace LavaMenu.WebEndpoint.Controllers
                 });
             }
 
-            return new JsonResult(showList);
+            return await Task.FromResult(showList);
         }
+        /// post:  api/Categury/AddCategury    
         [HttpPost]
-        public async Task<ActionResult<GlobalResultDTO>> AddCategury(string name, IFormFile Image)
+        public async Task<GlobalResultDTO> AddCategury([FromForm]string name,[FromForm] IFormFile Image)
         {
 
             var request = new AddCateguryRequestDTO()
@@ -70,9 +70,9 @@ namespace LavaMenu.WebEndpoint.Controllers
                 Name = name,
                 Image = Image
             };
-            var result = _addCategury.Excute(request);
+            var result = await _addCategury.Excute(request);
 
-            return await Task.FromResult(result.Result);
+            return await Task.FromResult(result);
         }
 
     }

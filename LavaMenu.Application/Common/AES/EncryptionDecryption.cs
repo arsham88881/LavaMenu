@@ -73,7 +73,7 @@ namespace LavaMenu.Application.Common.AES
 
             var KeyAndIv = Generate(secretkey);
 
-            var cipher = Encoding.UTF8.GetBytes(cipherText); //convert to byte[] for start process
+            var cipher = Convert.FromBase64String(cipherText); //convert to byte[] for start process
 
             string decrypted;
 

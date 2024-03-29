@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody id="TbodyCateguryAdmin">
-         
+
             @*<tr>
                     <th scope="row">2s</th>
                     <td>‌ <img src="~/images/ProductImages/638458680366292203arsham_fadaie_Anonymous_hackers.png" alt="test" width="100" height="100"> </td>
@@ -60,40 +60,42 @@
         <div class="modal-content text-white custom-glass">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                    افزون محصول جدید
+                    افزون دسته بندی جدید
                 </h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <div class="modal-body custom-direction">
-                <div class="mb-3 text-black">
-                    <label for="formFile" class="form-label">
-                        ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
-                        بارگزاری کنید<br />
-                        <a href="https://imagecompressor.com/" target="_blank">click this</a>
-                    </label>
-                    <input class="form-control" type="file" id="AddCateguryImage" />
-                    <label for="AddCateguryImage" class="mt-1">Default file input (PNG,JPEG)</label>
+            <form method="post" id="addCategurySubmit" enctype="multipart/form-data">
+                <div class="modal-body custom-direction">
+
+                    <div class="mb-3 text-black">
+                        <label for="formFile" class="form-label">
+                            ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
+                            بارگزاری کنید<br />
+                            <a href="https://imagecompressor.com/" target="_blank">click this</a>
+                        </label>
+                        <input class="form-control" type="file" id="AddCateguryImage" />
+                        <label for="AddCateguryImage" class="mt-1">Default file input (PNG,JPEG)</label>
+                    </div>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="addCateguryTitle"
+                               placeholder="عنوان"
+                               required />
+                        <label for="addCateguryTitle">عنوان</label>
+                    </div>
                 </div>
-                <div class="form-floating mb-3 text-black">
-                    <input type="text"
-                           class="form-control"
-                           id="addCateguryTitle"
-                           placeholder="عنوان"
-                           required />
-                    <label for="addCateguryTitle">عنوان</label>
+                <div class="modal-footer">
+                    <button type="submit"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        ذخیره
+                    </button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button"
-                        id="addCategurySubmit"
-                        class="btn btn-danger"
-                        data-bs-dismiss="modal">
-                    ذخیره
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
