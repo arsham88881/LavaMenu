@@ -1,15 +1,9 @@
-﻿using LavaMenu.Application.Application.Services.Categuries.command;
-using LavaMenu.Application.Application.Services.Categuries.query;
-using LavaMenu.Application.Common.AES;
+﻿using LavaMenu.Application.Application.Interfaces.FacadeDesignPattern;
+using LavaMenu.Application.Common.EncryptionAlgorithem;
 using LavaMenu.Application.Common.RequestDTO;
 using LavaMenu.Application.Common.ResultDTO;
 using LavaMenu.WebEndpoint.Models;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.AccessControl;
-using System.Text.Json;
 
 
 namespace LavaMenu.WebEndpoint.Controllers
@@ -19,39 +13,58 @@ namespace LavaMenu.WebEndpoint.Controllers
     [Route("api/[Controller]/[action]")]
     public class CateguryController : ControllerBase
     {
-        private readonly IAddCategury _addCategury;
-        private readonly IChangeCateguryStatus _changeStatus;
-        private readonly IGetAllCategureis _allCategureis;
         private readonly IConfiguration _configure;
+        private readonly ICateguryFacad _categuryFacad;
 
-        public CateguryController(IAddCategury addCategury, IChangeCateguryStatus changeStatus, IGetAllCategureis allCategureis, IConfiguration configure)
+        public CateguryController(IConfiguration configuration, ICateguryFacad categuryFacad)
         {
-            _addCategury = addCategury;
-            _allCategureis = allCategureis;
-            _changeStatus = changeStatus;
-            _configure = configure;
+            _configure = configuration;
+            _categuryFacad = categuryFacad;
         }
-
-        /// post:  api/Categury/ChangeStatus
-        [HttpPost]
-        public async Task<bool> ChangeStatus([FromBody]string ID)
+        /// PUT:  api/Categury/EditCategury?id={}&name={}
+        [HttpPut]
+        public async Task<GlobalResultDTO> EditCategury(CateguryRequestDTO UpdateCategury,string ID)
         {
-            var result = await  _changeStatus.Excute(ID.DecryptStringAES(_configure["secretKeyAES"]));
+           
+            var result = await _categuryFacad.editCateguryService.excute(ID.DecryptStringDES(_configure["secretKey"]), UpdateCategury);
+
+            return result;
+        }
+        /// GET:  api/Categury/GetSingleCategury?id
+        [HttpGet]
+        public async Task<ShowCateguryModel> GetSingleCategury(string ID)
+        {
+            var result = await _categuryFacad.getSingleCategury.Excute(ID.DecryptStringDES(_configure["secretKey"]));
+
+            return new ShowCateguryModel()
+            {
+                CateguryId = result.Value.CateguryId.ToString().EncryptStringDES(_configure["secretKey"]),
+                CateguryName = result.Value.CateguryName,
+                SrcCategury = result.Value.SrcCategury,
+                IsAvailable = result.Value.IsAvailable,
+            };
+
+        }
+        /// GET:  api/Categury/ChangeStatus?id
+        [HttpGet]
+        public async Task<bool> ChangeStatus(string ID)
+        {
+            var result = await _categuryFacad.changeCateguryStatus.Excute(ID.DecryptStringDES(_configure["secretKey"]));
 
             return result; //bool return
 
         }
-        /// get:  api/Categury/showAllCategury
+        /// GET:  api/Categury/showAllCategury
         [HttpGet]
         public async Task<List<ShowCateguryModel>> GetAllCategury()
         {
-            var list = _allCategureis.Excute();
+            var list = _categuryFacad.getAllCategureis.Excute();
             List<ShowCateguryModel> showList = new List<ShowCateguryModel>();
             foreach (var item in list)
             {
                 showList.Add(new ShowCateguryModel()
                 {
-                    CateguryId = item.CateguryId.ToString().EncryptStringAES(_configure["secretKeyAES"]),
+                    CateguryId = item.CateguryId.ToString().EncryptStringDES(_configure["secretKey"]),
                     CateguryName = item.CateguryName,
                     SrcCategury = item.SrcCategury,
                     IsAvailable = item.IsAvailable
@@ -62,15 +75,15 @@ namespace LavaMenu.WebEndpoint.Controllers
         }
         /// post:  api/Categury/AddCategury    
         [HttpPost]
-        public async Task<GlobalResultDTO> AddCategury([FromForm]string name,[FromForm] IFormFile Image)
+        public async Task<GlobalResultDTO> AddCategury([FromForm] string name, [FromForm] IFormFile Image)
         {
 
-            var request = new AddCateguryRequestDTO()
+            var request = new CateguryRequestDTO()
             {
                 Name = name,
                 Image = Image
             };
-            var result = await _addCategury.Excute(request);
+            var result = await _categuryFacad.addCategury.Excute(request);
 
             return await Task.FromResult(result);
         }

@@ -15,7 +15,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.query
 {
     public interface IGetSingleCategury
     {
-        public Task<GlobalResultDTO<ProductCategury>> Excute(long RequestID);
+        public Task<GlobalResultDTO<ProductCategury>> Excute(string RequestID);
     }
     public class GetSingleCategury : IGetSingleCategury
     {
@@ -27,9 +27,11 @@ namespace LavaMenu.Application.Application.Services.Categuries.query
             _db = db;
             _logger = logger;
         }
-        public async Task<GlobalResultDTO<ProductCategury>> Excute(long RequestID)
+        public async Task<GlobalResultDTO<ProductCategury>> Excute(string RequestID)
         {
-            var findedCategury = await _db.Categories.Where(p => p.CateguryId == RequestID).FirstOrDefaultAsync();
+            var
+                Id = Convert.ToInt64(RequestID);
+            var findedCategury = await _db.Categories.FindAsync(Id);
             if (findedCategury == null)
             {
                 _logger.Log(LogLevel.Error, "not found single categury");

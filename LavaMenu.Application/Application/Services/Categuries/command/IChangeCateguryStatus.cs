@@ -23,7 +23,6 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
         }
         public async Task<bool> Excute(string categuryID)
         {
-
             try
             {
                 if (string.IsNullOrWhiteSpace(categuryID))
@@ -34,15 +33,18 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                 long ID = Convert.ToInt64(categuryID);
 
                 var item = _db.Categories.Find(ID);
-                if (item != null)
+
+                if (item == null)
                 {
-                    item.IsAvailable = !item.IsAvailable;
-
-                    _db.SaveChanges();
-
-                    _logger.Log(LogLevel.Information, $"change status successfully for categuryName : {item.CateguryName}");
-                    return await Task.FromResult(true);
+                    return await Task.FromResult(false);
                 }
+
+                item.IsAvailable = !item.IsAvailable;
+
+                _db.SaveChanges();
+
+                _logger.Log(LogLevel.Information, $"change status successfully for categuryName : {item.CateguryName}");
+                return await Task.FromResult(true);
             }
             catch (Exception ex)
             {
@@ -51,8 +53,6 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
 
             }
 
-
-            throw new NotImplementedException();
         }
     }
 }

@@ -9,6 +9,9 @@ var configure = new ConfigurationBuilder().AddJsonFile("appsettings.json", optio
 
 // Add services to the IOC container.
 builder.Services.AddControllersWithViews();
+//Add swagger for testing Api's 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 ///////////////////////////////////////delevope log configure
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -29,6 +32,14 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+////configure swagger when use ISS server for run 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();

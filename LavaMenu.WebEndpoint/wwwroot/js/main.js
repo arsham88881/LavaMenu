@@ -29,34 +29,50 @@ function createCateguryItemAdminPanel(result) {
             `<th scope="row">${i + 1}</th>`,
             `<td>‌ <img src="/${result[i].srcCategury}" alt="${result[i].categuryName}" width="100" height="100"> </td>`,
             `<td>${result[i].categuryName}</td>`,
-            `<td>${status}</td>`,
+            `<td class="categuryStatus">${status}</td>`,
             `<td> <button type="button" class="btn activate-categury btn-danger">${statusBtn}</button> </td>`,
-            `<td> <button type="button" class="btn btn-warning">تصحیح</button> </td>`,
+            `<td> <button type="button" class="btn btn-warning edit-categury">تصحیح</button> </td>`,
             `<td> <button type="button" class="btn btn-danger">حذف</button> </td>`
         ].join(''));
         $("#TbodyCateguryAdmin").append(TableRow);
 
         $(TableRow).on("click", "button.activate-categury", function () {
+
             var id = $(this).parent().parent().attr("data-id");
 
-            //const changeCateguryStatusUrl = `/api/categury/ChangeStatus?ID=${id}`;
-
-            const changeCateguryStatusUrl = `/api/categury/ChangeStatus`;
-
-            //var datas = new FormData();
-            //datas.append("ID", id);
+            const changeCateguryStatusUrl = `/api/categury/ChangeStatus?id=${id}`;
 
             var request = $.ajax({
                 url: changeCateguryStatusUrl,
-                type: "POST",
-                //processData: false,
-                contentType: "application/json",
-                data: JSON.stringify(id),
+                type: "GET",
                 success: function (result) {
-
                     if (result) {
-                        console.log(result);  //I go 4 time in loop
                         GetAllCateguryAdminPanel();
+                    }
+                },
+                error: function (xhr, status, strMessage) {
+                    console.log(`status request:  ${status} , str message: ${strMessage}`);
+                }
+
+            });
+            request.done(function () { });
+        })
+
+        $(TableRow).on("click", "button.edit-categury", function () {
+
+            var id = $(this).parent().parent().attr("data-id");
+
+            const EditCateguryUrl = `/api/categury/GetSingleCategury?id=${id}`;
+
+            var request = $.ajax({
+                url: EditCateguryUrl,
+                type: "GET",
+                success: function (result) {
+                    if (result) {
+                        console.log(result);
+                        $("#EditCateguryTitle").val(result.categuryName);
+                        $("#EditCategurySubmit").attr("data-Id", result.categuryId)
+                        $("#EditCateguryBtnModal").modal("show");
                     }
                 },
                 error: function (xhr, status, strMessage) {
@@ -70,36 +86,7 @@ function createCateguryItemAdminPanel(result) {
 
 }
 /// activate categury function 
-function activateCategury() {
-    $(".activate-categury").on("click", function () {
 
-        var id = $(this).parent().parent().attr("data-id");
-
-        const changeCateguryStatusUrl = `/api/categury/ChangeStatus?ID=${id}`;
-
-        var request = $.ajax({
-            url: changeCateguryStatusUrl,
-            type: "GET",
-            processData: false,
-            contentType: false,
-            success: function (result) {
-
-                if (result) {
-                    console.log(result);  //I go 4 time in loop
-                    //GetAllCateguryAdminPanel();
-                }
-            },
-            error: function (xhr, status, strMessage) {
-                console.log(`status request:  ${status} , str message: ${strMessage}`);
-            }
-
-        });
-        request.done(function () { });
-    })
-
-
-
-}
 /// list categuries on admin panel
 function GetAllCateguryAdminPanel() {
 
@@ -143,14 +130,14 @@ $(document).ready(function () {
             data: formdata,
             success: function (result) {
 
-               // console.log(result);
+                // console.log(result);
                 appendLiveAlert(result.type, result.message);
 
-                //if (result.isSuccess) {
-                //    setTimeout(() => {
-                //        window.location.href = "/admin/Categury";
-                //    }, 2500);
-                //}
+                if (result.isSuccess) {
+                    setTimeout(() => {
+                        GetAllCateguryAdminPanel();
+                    }, 2500);
+                }
             },
             error: function (xhr, status, strmessage) {
                 console.log(`status request:  ${status} , str message: ${strmessage}`);
@@ -158,9 +145,43 @@ $(document).ready(function () {
         });
         addCateguryRequest.done(function () { })
     });
-    /// show all categury in admin layout
+    $('#EditCategurySubmit').on("submit", async function (e) {
+        e.preventDefault();
 
-    //$("#manageCategurybtn").on("click", GetAllCateguryAdminPanel);
+        var id = $('#EditCategurySubmit').attr("data-Id");
+        var name = $('#EditCateguryTitle').val();
+        const EditcateguryUrl = `/api/Categury/EditCategury?id=${id}&name=${name}`;
+        
+        const ImgEditCategury = document.querySelector("#EditCateguryImage").files[0];
+
+        var input = new FormData();
+        input.append("Image", ImgEditCategury)
+
+        var EditCateguryRequest = $.ajax({
+            type: "PUT",
+            url: EditcateguryUrl,
+            contentType: false,
+            processData: false,
+            enctype: "multipart/form-data",
+            data: input,
+            success: function (result) {
+
+                console.log(result);
+
+                appendLiveAlert(result.type, result.message);
+
+                if (result.isSuccess) {
+                    GetAllCateguryAdminPanel();
+                }
+            },
+            error: function (xhr, status, strmessage) {
+                console.log(`status request:  ${status} , str message: ${strmessage} `);
+                console.log(xhr);
+            }
+        });
+        EditCateguryRequest.done(function () { })
+    });
+
 })
 
 

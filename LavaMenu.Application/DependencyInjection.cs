@@ -1,4 +1,6 @@
-﻿using LavaMenu.Application.Application.Services.Categuries.command;
+﻿using LavaMenu.Application.Application.Interfaces.FacadeDesignPattern;
+using LavaMenu.Application.Application.Services.Categuries.command;
+using LavaMenu.Application.Application.Services.Categuries.FacadeDesign;
 using LavaMenu.Application.Application.Services.Categuries.query;
 using LavaMenu.Application.Application.Services.Products.Command;
 using LavaMenu.Application.Common.File;
@@ -19,7 +21,12 @@ namespace LavaMenu.Application
             services.Add(new ServiceDescriptor(typeof(IAddProductItem), typeof(AddProductItem), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IAddCategury), typeof(AddCategury), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IGetAllCategureis), typeof(GetAllCategury), ServiceLifetime.Scoped));
-            services.Add(new ServiceDescriptor(typeof(IChangeCateguryStatus),typeof(ChangeCateguryStatus), ServiceLifetime.Scoped));    
+            services.Add(new ServiceDescriptor(typeof(IChangeCateguryStatus),typeof(ChangeCateguryStatus), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IGetSingleCategury), typeof(GetSingleCategury), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IEditCateguryService), typeof(EditCateguryService), ServiceLifetime.Scoped));
+
+            //facade design pattern rigestration 
+            services.Add(new ServiceDescriptor(typeof(ICateguryFacad),typeof(CateguryFacad), ServiceLifetime.Scoped));  
         }
     }
 }

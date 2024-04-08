@@ -16,7 +16,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
 {
     public interface IAddCategury
     {
-        Task<GlobalResultDTO> Excute(AddCateguryRequestDTO request);
+        Task<GlobalResultDTO> Excute(CateguryRequestDTO request);
     }
     public class AddCategury : IAddCategury
     {
@@ -29,7 +29,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
             _logger = logger;
             _db = db;
         }
-        public async Task<GlobalResultDTO> Excute(AddCateguryRequestDTO request)
+        public async Task<GlobalResultDTO> Excute(CateguryRequestDTO request)
         {
             try
             {

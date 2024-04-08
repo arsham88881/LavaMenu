@@ -2,11 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace LavaMenu.Application.Common.File
 {
@@ -34,11 +30,19 @@ namespace LavaMenu.Application.Common.File
         {
             try
             {
-                Directory.Delete(address);
+                var AddressFolderRoot = Path.Combine(_environment.WebRootPath, address);
+
+                var existance = System.IO.File.Exists(AddressFolderRoot);
+                if (!existance)
+                {
+                    throw new DirectoryNotFoundException();
+                }
+                System.IO.File.Delete(AddressFolderRoot);
+                
                 _logger.Log(LogLevel.Information, $"successful Delete image at time:  {DateTime.UtcNow}");
                 return true;
             }
-            catch( Exception ex )
+            catch (Exception ex)
             {
                 _logger.Log(LogLevel.Error, $"faile Delete image error: {ex} at time:  {DateTime.UtcNow}");
                 return false;
@@ -49,12 +53,14 @@ namespace LavaMenu.Application.Common.File
         {
             try
             {
+                var AddressFolderRoot = Path.Combine(_environment.WebRootPath, address);
 
-                if (!Directory.Exists(address))
+                var existance = System.IO.File.Exists(AddressFolderRoot);
+                if (!existance)
                 {
                     throw new DirectoryNotFoundException();
                 }
-                Directory.Delete(address);
+                System.IO.File.Delete(AddressFolderRoot);
 
                 if (file == null || file.Length == 0)
                 {
@@ -64,22 +70,12 @@ namespace LavaMenu.Application.Common.File
                         IsSuccess = false,
                     };
                 }
-                var fileName = DateTime.Now.Ticks.ToString() + file.FileName;
 
-                string folderLocation = @"images\ProductImages\";
-                var oploadFolderRoot = Path.Combine(folderLocation, fileName);
+                var result = UploadFile(file);
 
-                using (FileStream stream = new FileStream(oploadFolderRoot, FileMode.OpenOrCreate))
-                {
-                    file.CopyTo(stream);
-                }
-                _logger.Log(LogLevel.Information, $"successful Edit image => name: {fileName} , time : {DateTime.UtcNow}");
+                _logger.Log(LogLevel.Information, $"successful add image => name: {file.FileName} , time : {DateTime.UtcNow}");
 
-                return new FileResultDTO()
-                {
-                    FileAddress = oploadFolderRoot,
-                    IsSuccess = true,
-                };
+                return result;
             }
             catch (Exception ex)
             {
@@ -98,12 +94,14 @@ namespace LavaMenu.Application.Common.File
         {
             try
             {
+                var AddressFolderRoot = Path.Combine(_environment.WebRootPath, address);
 
-                if (!Directory.Exists(address))
+                var existance = System.IO.File.Exists(AddressFolderRoot);
+                if (!existance)
                 {
                     throw new DirectoryNotFoundException();
                 }
-                Directory.Delete(address);
+                System.IO.File.Delete(AddressFolderRoot);
 
                 if (file == null || file.Length == 0)
                 {
@@ -113,22 +111,13 @@ namespace LavaMenu.Application.Common.File
                         IsSuccess = false,
                     });
                 }
-                var fileName = DateTime.Now.Ticks.ToString() + file.FileName;
+                var result = UploadFileAsync(file);
 
-                string folderLocation = @"images\ProductImages\";
-                var oploadFolderRoot = Path.Combine(folderLocation, fileName);
+                _logger.Log(LogLevel.Information, $"successful Edit image => name: {file.FileName} , time : {DateTime.UtcNow}");
 
-                using (FileStream stream = new FileStream(oploadFolderRoot, FileMode.OpenOrCreate))
-                {
-                    file.CopyTo(stream);
-                }
-                _logger.Log(LogLevel.Information, $"successful Edit image => name: {fileName} , time : {DateTime.UtcNow}");
+                return await result;
 
-                return await Task.FromResult(new FileResultDTO()
-                {
-                    FileAddress = oploadFolderRoot,
-                    IsSuccess = true,
-                });
+
             }
             catch (Exception ex)
             {
@@ -150,10 +139,10 @@ namespace LavaMenu.Application.Common.File
                 if (file != null)
                 {
                     string folderLocation = @"images\ProductImages\";
-                    var oploadFolderRoot = Path.Combine(_environment.WebRootPath, folderLocation);
-                    if (!Directory.Exists(oploadFolderRoot))
+                    var uploadFolderRoot = Path.Combine(_environment.WebRootPath, folderLocation);
+                    if (!Directory.Exists(uploadFolderRoot))
                     {
-                        Directory.CreateDirectory(oploadFolderRoot);
+                        Directory.CreateDirectory(uploadFolderRoot);
                     }
                     if (file == null || file.Length == 0)
                     {
@@ -165,7 +154,7 @@ namespace LavaMenu.Application.Common.File
                     }
 
                     string FileName = DateTime.Now.Ticks.ToString() + file.FileName;
-                    var filePath = Path.Combine(oploadFolderRoot, FileName);
+                    var filePath = Path.Combine(uploadFolderRoot, FileName);
 
                     using (FileStream stream = new FileStream(filePath, FileMode.Create))
                     {
