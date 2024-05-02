@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LavaMenu.Application.Migrations
 {
     [DbContext(typeof(db))]
-    [Migration("20240314174710_update prductCategury")]
-    partial class updateprductCategury
+    [Migration("20240426160336_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,17 +27,17 @@ namespace LavaMenu.Application.Migrations
 
             modelBuilder.Entity("LavaMenu.Application.Domain.Entitys.Product", b =>
                 {
-                    b.Property<long>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProductId"));
-
-                    b.Property<long>("CateguryId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CateguryId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("DiscountAmountOption")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsWithDiscount")
                         .HasColumnType("bit");
@@ -47,11 +47,13 @@ namespace LavaMenu.Application.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("ProductTitle")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int?>("productPrice")
                         .HasColumnType("int");
@@ -60,20 +62,24 @@ namespace LavaMenu.Application.Migrations
 
                     b.HasIndex("CateguryId");
 
-                    b.ToTable("Products");
+                    b.HasIndex("ProductTitle")
+                        .IsUnique();
+
+                    b.ToTable("product", (string)null);
                 });
 
             modelBuilder.Entity("LavaMenu.Application.Domain.Entitys.ProductCategury", b =>
                 {
-                    b.Property<long>("CateguryId")
+                    b.Property<int>("CateguryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("CateguryId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CateguryId"));
 
                     b.Property<string>("CateguryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -84,7 +90,10 @@ namespace LavaMenu.Application.Migrations
 
                     b.HasKey("CateguryId");
 
-                    b.ToTable("Categories");
+                    b.HasIndex("CateguryName")
+                        .IsUnique();
+
+                    b.ToTable("categury", (string)null);
                 });
 
             modelBuilder.Entity("LavaMenu.Application.Domain.Entitys.User", b =>
@@ -135,7 +144,7 @@ namespace LavaMenu.Application.Migrations
                     b.HasOne("LavaMenu.Application.Domain.Entitys.ProductCategury", "categury")
                         .WithMany("products")
                         .HasForeignKey("CateguryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("categury");

@@ -30,7 +30,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                     return await Task.FromResult(false);
                 }
 
-                long ID = Convert.ToInt64(categuryID);
+                int ID = Convert.ToInt32(categuryID);
 
                 var item = _db.Categories.Find(ID);
 

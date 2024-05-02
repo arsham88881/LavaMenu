@@ -5,12 +5,7 @@ using LavaMenu.Application.Common.RequestDTO;
 using LavaMenu.Application.Common.ResultDTO;
 using LavaMenu.Application.Domain.Entitys;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LavaMenu.Application.Application.Services.Categuries.command
 {
@@ -43,7 +38,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                     return await Task<GlobalResultDTO>.FromResult(
                         new GlobalResultDTO() { IsSuccess = false, Message = "این دسته بندی موجود است", Type = AlertType.Info });
                 }
-                var loadFileResult = await Task<FileResultDTO>.FromResult(_WorkFile.UploadFile(request.Image));
+                var loadFileResult = await Task<FileResultDTO>.FromResult(_WorkFile.UploadFile(request.Image,UploadFolderRoot.CateguryFolderRoot));
 
                 categury = new ProductCategury()
                 {

@@ -1,4 +1,5 @@
-﻿using LavaMenu.Application.Common.ResultDTO;
+﻿using LavaMenu.Application.Common.constConfigure;
+using LavaMenu.Application.Common.ResultDTO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -8,11 +9,11 @@ namespace LavaMenu.Application.Common.File
 {
     public interface IworkFiles
     {
-        FileResultDTO UploadFile(IFormFile file);
-        FileResultDTO EditFile(string address, IFormFile file);
+        FileResultDTO UploadFile(IFormFile file, string folderRoot);
+        FileResultDTO EditFile(string address, IFormFile file, string folderRoot);
 
-        Task<FileResultDTO> UploadFileAsync(IFormFile file);
-        Task<FileResultDTO> EditFileAsnyc(string address, IFormFile file);
+        Task<FileResultDTO> UploadFileAsync(IFormFile file, string folderRoot);
+        Task<FileResultDTO> EditFileAsnyc(string address, IFormFile file , string folderRoot);
 
         bool DeleteFile(string address);
 
@@ -49,7 +50,7 @@ namespace LavaMenu.Application.Common.File
             }
         }
 
-        public FileResultDTO EditFile(string address, IFormFile file)
+        public FileResultDTO EditFile(string address, IFormFile file, string folderRoot)
         {
             try
             {
@@ -71,7 +72,7 @@ namespace LavaMenu.Application.Common.File
                     };
                 }
 
-                var result = UploadFile(file);
+                var result = UploadFile(file, folderRoot);
 
                 _logger.Log(LogLevel.Information, $"successful add image => name: {file.FileName} , time : {DateTime.UtcNow}");
 
@@ -90,7 +91,7 @@ namespace LavaMenu.Application.Common.File
             };
         }
 
-        public async Task<FileResultDTO> EditFileAsnyc(string address, IFormFile file)
+        public async Task<FileResultDTO> EditFileAsnyc(string address, IFormFile file , string folderRoot)
         {
             try
             {
@@ -111,7 +112,7 @@ namespace LavaMenu.Application.Common.File
                         IsSuccess = false,
                     });
                 }
-                var result = UploadFileAsync(file);
+                var result = UploadFileAsync(file,folderRoot);
 
                 _logger.Log(LogLevel.Information, $"successful Edit image => name: {file.FileName} , time : {DateTime.UtcNow}");
 
@@ -132,13 +133,14 @@ namespace LavaMenu.Application.Common.File
             });
         }
 
-        public FileResultDTO UploadFile(IFormFile file)
+        public FileResultDTO UploadFile(IFormFile file,string folderRoot)
         {
             try
             {
                 if (file != null)
                 {
-                    string folderLocation = @"images\ProductImages\";
+                    //string folderLocation = @"images\ProductImages\";
+                    string folderLocation = folderRoot;
                     var uploadFolderRoot = Path.Combine(_environment.WebRootPath, folderLocation);
                     if (!Directory.Exists(uploadFolderRoot))
                     {
@@ -153,7 +155,8 @@ namespace LavaMenu.Application.Common.File
                         };
                     }
 
-                    string FileName = DateTime.Now.Ticks.ToString() + file.FileName;
+                    string[] Prefix = file.FileName.Split('.');
+                    string FileName = Guid.NewGuid().ToString()+'.'+Prefix[Prefix.Length-1];
                     var filePath = Path.Combine(uploadFolderRoot, FileName);
 
                     using (FileStream stream = new FileStream(filePath, FileMode.Create))
@@ -180,11 +183,11 @@ namespace LavaMenu.Application.Common.File
             };
         }
 
-        public async Task<FileResultDTO> UploadFileAsync(IFormFile file)
+        public async Task<FileResultDTO> UploadFileAsync(IFormFile file , string folderRoot)
         {
             try
             {
-                string folderLocation = @"images\ProductImages\";
+                string folderLocation = folderRoot;
                 var oploadFolderRoot = Path.Combine(_environment.WebRootPath, folderLocation);
                 if (!Directory.Exists(oploadFolderRoot))
                 {
@@ -199,8 +202,8 @@ namespace LavaMenu.Application.Common.File
                         IsSuccess = false,
                     });
                 }
-
-                string FileName = DateTime.Now.Ticks.ToString() + file.FileName;
+                string[] Prefix = file.FileName.Split('.');
+                string FileName = Guid.NewGuid().ToString() + '.' + Prefix[Prefix.Length - 1];
                 var filePath = Path.Combine(oploadFolderRoot, FileName);
 
                 using (FileStream stream = new FileStream(filePath, FileMode.Create))

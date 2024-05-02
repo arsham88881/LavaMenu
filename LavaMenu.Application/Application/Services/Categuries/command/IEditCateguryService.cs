@@ -37,7 +37,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                     });
                 }
 
-                long Id = Convert.ToInt64(ID);
+                int Id = Convert.ToInt32(ID);
 
                 var item = _db.Categories.Find(Id);
 
@@ -59,7 +59,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.command
                 {
                     item.CateguryName = request.Name;
 
-                    var newFilePath = _workFile.EditFile(item.SrcCategury, request.Image);
+                    var newFilePath = _workFile.EditFile(item.SrcCategury, request.Image,UploadFolderRoot.CateguryFolderRoot);
 
                     item.SrcCategury = newFilePath.FileAddress;
                 }

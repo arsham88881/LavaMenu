@@ -5,22 +5,24 @@
 namespace LavaMenu.Application.Migrations
 {
     /// <inheritdoc />
-    public partial class firstConfigure : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "categury",
                 columns: table => new
                 {
-                    CateguryId = table.Column<long>(type: "bigint", nullable: false)
+                    CateguryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CateguryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CateguryName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    SrcCategury = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CateguryId);
+                    table.PrimaryKey("PK_categury", x => x.CateguryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,27 +40,28 @@ namespace LavaMenu.Application.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "product",
                 columns: table => new
                 {
-                    ProductId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductTitle = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    ProductDescription = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     productPrice = table.Column<int>(type: "int", nullable: true),
                     IsWithDiscount = table.Column<bool>(type: "bit", nullable: false),
                     DiscountAmountOption = table.Column<int>(type: "int", nullable: true),
-                    CateguryId = table.Column<long>(type: "bigint", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    PictureSrc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CateguryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.PrimaryKey("PK_product", x => x.ProductId);
                     table.ForeignKey(
-                        name: "FK_Products_Categories_CateguryId",
+                        name: "FK_product_categury_CateguryId",
                         column: x => x.CateguryId,
-                        principalTable: "Categories",
+                        principalTable: "categury",
                         principalColumn: "CateguryId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,9 +85,21 @@ namespace LavaMenu.Application.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CateguryId",
-                table: "Products",
+                name: "IX_categury_CateguryName",
+                table: "categury",
+                column: "CateguryName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_product_CateguryId",
+                table: "product",
                 column: "CateguryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_product_ProductTitle",
+                table: "product",
+                column: "ProductTitle",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_UserId",
@@ -97,13 +112,13 @@ namespace LavaMenu.Application.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "product");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "categury");
 
             migrationBuilder.DropTable(
                 name: "Users");

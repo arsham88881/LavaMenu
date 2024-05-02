@@ -2,7 +2,7 @@
 using LavaMenu.Application.Common.EncryptionAlgorithem;
 using LavaMenu.Application.Common.RequestDTO;
 using LavaMenu.Application.Common.ResultDTO;
-using LavaMenu.WebEndpoint.Models;
+using LavaMenu.WebEndpoint.Models.Categury;
 using Microsoft.AspNetCore.Mvc;
 
 

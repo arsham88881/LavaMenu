@@ -23,10 +23,12 @@ namespace LavaMenu.Application.infrastructure.DBcontext
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>(entity => entity.HasKey(p => p.ProductId));
-            modelBuilder.Entity<ProductCategury>(entity => entity.HasKey(p => p.CateguryId));
+          
             modelBuilder.Entity<User>(entity => entity.HasKey(u => u.UserId));
             modelBuilder.Entity<UserRole>(entity => entity.HasKey(u => u.RoleId));
+
+            //////////////////////////////////////read from Mapping folder on Domain
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(db).Assembly);
 
         }
 

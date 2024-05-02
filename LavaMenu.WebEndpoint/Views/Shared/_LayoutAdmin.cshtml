@@ -69,8 +69,8 @@
                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Manage categury</a>
                             </li>
                             <li>
-                                <a href="#"
-                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">add new item</a>
+                                <a asp-controller="admin" asp-action="Product" id="manageProductBtn"
+                                   class="link-body-emphasis d-inline-flex text-decoration-none rounded">Manage Product</a>
                             </li>
                         </ul>
                     </div>
@@ -98,17 +98,6 @@
     <div id="liveAlertPlaceholder" class="position-fixed  start-50 translate-middle-x">
        
     </div>
-    <!-- Modal add item btn -->
-    <div class="modal fade"
-         id="addBtnitem"
-         data-bs-backdrop="static"
-         data-bs-keyboard="false"
-         tabindex="-1"
-         aria-labelledby="staticBackdropLabel"
-         aria-hidden="true">
-        @await Component.InvokeAsync("AddItem");
-    </div>
-
     <!-- modal edit btn  -->
     <div class="modal fade"
          id="aditBtnModal"

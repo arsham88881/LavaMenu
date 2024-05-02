@@ -1,4 +1,4 @@
-﻿namespace LavaMenu.WebEndpoint.Models
+﻿namespace LavaMenu.WebEndpoint.Models.Categury
 {
     public class ShowCateguryModel
     {

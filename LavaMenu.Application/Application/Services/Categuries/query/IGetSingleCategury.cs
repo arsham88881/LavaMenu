@@ -29,8 +29,7 @@ namespace LavaMenu.Application.Application.Services.Categuries.query
         }
         public async Task<GlobalResultDTO<ProductCategury>> Excute(string RequestID)
         {
-            var
-                Id = Convert.ToInt64(RequestID);
+            int Id = Convert.ToInt32(RequestID);
             var findedCategury = await _db.Categories.FindAsync(Id);
             if (findedCategury == null)
             {

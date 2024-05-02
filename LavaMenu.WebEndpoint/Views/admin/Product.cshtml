@@ -1,0 +1,223 @@
+﻿
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<div class="table-container table-responsive w-75 ms-5 ms-sm-0 ">
+    <table class="table table-striped table-hover text-center">
+        <thead class="table-warning">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">تصویر</th>
+                <th scope="col">اسم</th>
+                <th scope="col">قیمت</th>
+                <th scope="col">دسته‌بندی</th>
+                <th scope="col">وضعیت</th>
+                <th scope="colgroup" colspan="3">
+                    عملیات ها
+                </th>
+            </tr>
+        </thead>
+        <tbody id="TbodyProductAdmin">
+
+            @*<tr>
+                <th scope="row">1</th>
+                <td>‌ <img src="~/images/item1.jpg" alt="test" width="100" height="100"> </td>
+                <td>شیک نوتلا</td>
+                <td>95</td>
+                <td>شیک ها</td>
+                <td>غیر فعال</td>
+                <td>
+                    <button type="button" class="btn btn-danger">فعال</button>
+                </td>
+
+                <td>
+                    <button type="button" class="btn btn-warning">تصحیح</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger">حذف</button>
+                </td>
+            </tr>*@
+           
+        </tbody>
+    </table>
+</div>
+<!-- add product btn contanier  -->
+<div class="btn-container custom-glass d-flex justify-content-end p-3">
+    <a class="btn btn-danger "
+       data-bs-toggle="modal"
+       data-bs-target="#addProductBtnModal">
+        add Product
+    </a>
+</div>
+<!-- Modal add product -->
+<div class="modal fade"
+     id="addProductBtnModal"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-white custom-glass">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    افزون محصول جدید
+                </h1>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="addProductSubmit">
+                <div class="modal-body custom-direction">
+
+                    <div class="mb-3 text-black">
+                        <label for="formFile" class="form-label">
+                            ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
+                            بارگزاری کنید<br />
+                            <a href="https://imagecompressor.com/" target="_blank">click this</a>
+                        </label>
+                        <input class="form-control" type="file" id="AddProductImage" />
+                        <label for="AddProductImage" class="mt-1">Default file input (PNG,JPEG)</label>
+                    </div>
+                    <label for="addProductSubCategury">دسته بندی</label>
+                    <select class="form-select form-select mb-3"
+                            aria-label="Large select example"
+                            id="addProductSubCategury"
+                            required>
+                        <!--<option value="3">نوشیدنی گرم</option>-->
+                    </select>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="addProductTitle"
+                               placeholder="عنوان"
+                               required />
+                        <label for="addProductTitle">عنوان</label>
+                    </div>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="addProductPrice"
+                               placeholder="قیمت"
+                               required />
+                        <label for="addProductPrice">قیمت</label>
+                    </div>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="addProductDescription"
+                               value=" "
+                               placeholder="(اختیاری)"
+                               required />
+                        <label for="addProductDescription">توضیحات</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        ذخیره
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal edit Product -->
+<div class="modal fade"
+     id="EditProductBtnModal"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-white custom-glass">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    اصلاح محصول
+                </h1>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="EditProductSubmit">
+                <div class="modal-body custom-direction">
+
+                    <div class="mb-3 text-black">
+                        <label for="formFile" class="form-label">
+                            ابتدا وارد سایت زیر بشین و عکس خود را فشرده سازی کنید سپس
+                            بارگزاری کنید<br />
+                            <a href="https://imagecompressor.com/" target="_blank">click this</a>
+                        </label>
+                        <input class="form-control" type="file" id="editProductImage" />
+                        <label for="editProductImage" class="mt-1">Default file input (PNG,JPEG)</label>
+                    </div>
+                    <select class="form-select form-select mb-3"
+                            aria-label="Large select example"
+                            id="editProductSubCategury"
+                            required>
+                        @*<option value="3">نوشیدنی گرم</option>*@
+                    </select>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="editProductTitle"
+                               placeholder="عنوان"
+                               required />
+                        <label for="editProductTitle">عنوان</label>
+                    </div>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="editProductPrice"
+                               placeholder="قیمت"
+                               required />
+                        <label for="editProductPrice">قیمت</label>
+                    </div>
+                    <div class="form-floating mb-3 text-black">
+                        <input type="text"
+                               class="form-control"
+                               id="editProductDescription"
+                               placeholder="(اختیاری)"
+                               />
+                        <label for="editProductDescription">توضیحات</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input float-end ms-0" type="checkbox" id="IsWithDiscountEditProduct">
+                        <label class="form-check-label" for="IsWithDiscountEditProduct">
+                            اعمال تخفیف
+                        </label>
+                    </div>
+                    <div class="form-floating mb-3 text-black" id="editProductGroupParent" style="visibility:hidden;">
+                        <input type="text"
+                               class="form-control"
+                               id="editProductWithDiscount"
+                               placeholder="قیمت بعد از تخفیف"
+                               />
+                        <label for="editProductWithDiscount">قیمت بعد از تخفیف</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        ذخیره
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(window).on("load", GetAllProductAdminPanel);
+        </script>
+
+}
