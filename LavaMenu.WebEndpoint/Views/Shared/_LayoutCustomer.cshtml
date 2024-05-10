@@ -15,8 +15,8 @@
 <body class="bg-secondary text-light">
     <div class="d-flex">
         <!-- left navbar  -->
-        <div class="bg-black col-2 justify-content-center pt-3 pb-5 px-1">
-           @await Component.InvokeAsync("ShowCateguryCustomer")
+        <div class="bg-black col-2 justify-content-center pt-3 pb-5 px-1 min-vh-100">
+            @await Component.InvokeAsync("ShowCateguryCustomer")
         </div>
         <!-- cards container -->
         <div class="container-fluid pt-4 pb-5">
@@ -163,6 +163,7 @@
         </div>
     </div>
     <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/main.js"></script>
 </body>
 </html>

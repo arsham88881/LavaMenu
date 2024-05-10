@@ -4,6 +4,7 @@ using LavaMenu.Application.Common.RequestDTO;
 using LavaMenu.Application.Common.ResultDTO;
 using LavaMenu.WebEndpoint.Models.Categury;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 
 namespace LavaMenu.WebEndpoint.Controllers
@@ -21,11 +22,42 @@ namespace LavaMenu.WebEndpoint.Controllers
             _configure = configuration;
             _categuryFacad = categuryFacad;
         }
+        /// POST:  api/Categury/PostProductsOnEdit
+        [HttpPost]
+        public async Task<IActionResult> PostProductsOnEdit([FromForm]string ProductIds ,[FromForm] string id)
+        {
+            var result = await _categuryFacad.AddProductToCategury
+                .AddAsync(JsonSerializer.Deserialize<List<string>>(ProductIds), id.DecryptStringDES(_configure["secretKey"]));
+
+            return Ok(result);
+        }
+        /// GET:  api/Categury/GetProductToCategury
+        [HttpGet]
+        public async Task<IActionResult> GetProductToCategury() {
+            var result = await _categuryFacad.ProductWithoutCategury.GetListAsync();
+            return Ok(result);
+        }
+        /// DELETE:  api/Categury/DeleteHardCategury?CateguryId={}
+        [HttpDelete]
+        public async Task<IActionResult> DeleteHardCategury(string CateguryId)
+        {
+            var result = await _categuryFacad.HardDeleteCategury
+                .DeleteCateguryAsync(CateguryId.DecryptStringDES(_configure["secretKey"]));
+            return Ok(result);
+        }
+        /// GET:  api/Categury/DeleteSoftCategury?CateguryId={}
+        [HttpGet]
+        public async Task<IActionResult> DeleteSoftCategury(string CateguryId)
+        {
+            var result = await _categuryFacad.SoftDeleteCategury
+                .DeleteCateguriesAsync(CateguryId.DecryptStringDES(_configure["secretKey"]));
+            return Ok(result);
+        }
         /// PUT:  api/Categury/EditCategury?id={}&name={}
         [HttpPut]
-        public async Task<GlobalResultDTO> EditCategury(CateguryRequestDTO UpdateCategury,string ID)
+        public async Task<GlobalResultDTO> EditCategury(CateguryRequestDTO UpdateCategury, string ID)
         {
-           
+
             var result = await _categuryFacad.editCateguryService.excute(ID.DecryptStringDES(_configure["secretKey"]), UpdateCategury);
 
             return result;

@@ -22,24 +22,25 @@
         <tbody id="TbodyProductAdmin">
 
             @*<tr>
-                <th scope="row">1</th>
-                <td>‌ <img src="~/images/item1.jpg" alt="test" width="100" height="100"> </td>
-                <td>شیک نوتلا</td>
-                <td>95</td>
-                <td>شیک ها</td>
-                <td>غیر فعال</td>
-                <td>
-                    <button type="button" class="btn btn-danger">فعال</button>
-                </td>
+                    <th scope="row">1</th>
+                    <td>‌ <img src="~/images/item1.jpg" alt="test" width="100" height="100"> </td>
+                    <td>شیک نوتلا</td>
+                    <td>95</td>
+                    <td>شیک ها</td>
+                    <td>غیر فعال</td>
+                    <td>
+                        <button type="button" class="btn btn-danger">فعال</button>
+                    </td>
 
-                <td>
-                    <button type="button" class="btn btn-warning">تصحیح</button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger">حذف</button>
-                </td>
-            </tr>*@
-           
+                    <td>
+                        <button type="button" class="btn btn-warning">تصحیح</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                         data-bs-toggle="modal" data-bs-target="#deleteBtnModal">حذف</button>
+                    </td>
+                </tr>*@
+
         </tbody>
     </table>
 </div>
@@ -183,8 +184,7 @@
                         <input type="text"
                                class="form-control"
                                id="editProductDescription"
-                               placeholder="(اختیاری)"
-                               />
+                               placeholder="(اختیاری)" />
                         <label for="editProductDescription">توضیحات</label>
                     </div>
                     <div class="form-check">
@@ -197,8 +197,7 @@
                         <input type="text"
                                class="form-control"
                                id="editProductWithDiscount"
-                               placeholder="قیمت بعد از تخفیف"
-                               />
+                               placeholder="قیمت بعد از تخفیف" />
                         <label for="editProductWithDiscount">قیمت بعد از تخفیف</label>
                     </div>
                 </div>
@@ -213,11 +212,43 @@
         </div>
     </div>
 </div>
-
+<!-- modal delete btn -->
+<div class="modal fade"
+     id="deleteProductBtnModal"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-glass">
+            <div class="modal-header text-black">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">حذف محصول</h1>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="HardDeleteProductSubmit">
+                <div class="modal-body text-black custom-direction">
+                    از عمل حذف مطمئن هستید؟
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        لغو
+                    </button>
+                    <button type="submit" class="btn btn-warning" data-bs-dismiss="modal">حذف شود</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script>
         $(window).on("load", GetAllProductAdminPanel);
-        </script>
+    </script>
 
 }

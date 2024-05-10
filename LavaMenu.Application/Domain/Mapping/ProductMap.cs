@@ -32,7 +32,7 @@ namespace LavaMenu.Application.Domain.Mapping
             builder.HasOne(x => x.categury)
                 .WithMany(x => x.products)
                 .HasForeignKey(x => x.CateguryId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

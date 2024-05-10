@@ -19,7 +19,7 @@ namespace LavaMenu.Application.Domain.Entitys
         public bool IsActive { get; set; } = true;
         public string PictureSrc {  get; set; }
 
-        public int CateguryId {  get; set; }
+        public int? CateguryId {  get; set; }
         public virtual ProductCategury categury { get; set; }
 
     }

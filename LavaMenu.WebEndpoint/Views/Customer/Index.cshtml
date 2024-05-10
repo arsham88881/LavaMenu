@@ -1,48 +1,77 @@
-﻿
+﻿@model List<LavaMenu.Application.Domain.Entitys.Product>
+
 @{
     Layout = "_LayoutCustomer";
     ViewData["Title"] = "Home";
 }
 
-<div class="card mx-auto bg-warning border border-warning mb-3"
-     style="width: 22rem">
-    <img src="~/images/item1.jpg"
-         class="card-img-top"
-         alt="..." />
-    <div class="card-body text-end">
-        <h5 class="card-title fw-bolder">کیک نوتلا</h5>
-        <p class="card-text">اسپرسودیل+پودرنارگیل+سیرپ نارگیل +نسکافه</p>
-        <h6 class="fw-bolder text-start">
-            <span class="price">56</span>تومان
-        </h6>
-        <a href="#" class="btn btn-danger">افزودن به سبد</a>
+
+@if (!Model.Any())
+{
+    <h2>محصولی ثبت نشده است</h2>
+}
+else
+{
+
+    @foreach (var item in Model)
+    {
+
+        <div class="card mx-auto bg-warning border border-warning mb-3"
+             style="width: 22rem">
+            <img src="~/@item.PictureSrc"
+                 class="card-img-top"
+                 alt="@item.ProductTitle" />
+            <div class="card-body text-end">
+                <h5 class="card-title fw-bolder">@item.ProductTitle</h5>
+                <p class="card-text">@item.ProductDescription</p>
+                <h6 class="fw-bolder text-start">
+                    <span class="price">@item.productPrice</span>تومان
+                </h6>
+                <a href="#" class="btn btn-danger">افزودن به سبد</a>
+            </div>
+        </div>
+
+    }
+}
+@*<div class="card mx-auto bg-warning border border-warning mb-3"
+         style="width: 22rem">
+        <img src="~/images/item1.jpg"
+             class="card-img-top"
+             alt="..." />
+        <div class="card-body text-end">
+            <h5 class="card-title fw-bolder">کیک نوتلا</h5>
+            <p class="card-text">اسپرسودیل+پودرنارگیل+سیرپ نارگیل +نسکافه</p>
+            <h6 class="fw-bolder text-start">
+                <span class="price">56</span>تومان
+            </h6>
+            <a href="#" class="btn btn-danger">افزودن به سبد</a>
+        </div>
     </div>
-</div>
-<div class="card mx-auto bg-warning border border-warning mb-3"
-     style="width: 22rem">
-    <img src="~/images/item2.jpg"
-         class="card-img-top"
-         alt="..." />
-    <div class="card-body text-end">
-        <h5 class="card-title fw-bolder">کیک نوتلا</h5>
-        <p class="card-text">اسپرسودیل+پودرنارگیل+سیرپ نارگیل +نسکافه</p>
-        <h6 class="fw-bolder text-start">
-            <span class="price">56</span>تومان
-        </h6>
-        <a href="#" class="btn btn-danger">افزودن به سبد</a>
+    <div class="card mx-auto bg-warning border border-warning mb-3"
+         style="width: 22rem">
+        <img src="~/images/item2.jpg"
+             class="card-img-top"
+             alt="..." />
+        <div class="card-body text-end">
+            <h5 class="card-title fw-bolder">کیک نوتلا</h5>
+            <p class="card-text">اسپرسودیل+پودرنارگیل+سیرپ نارگیل +نسکافه</p>
+            <h6 class="fw-bolder text-start">
+                <span class="price">56</span>تومان
+            </h6>
+            <a href="#" class="btn btn-danger">افزودن به سبد</a>
+        </div>
     </div>
-</div>
-<div class="card mx-auto bg-warning border border-warning mb-3"
-     style="width: 22rem">
-    <img src="~/images/item3.jpg"
-         class="card-img-top"
-         alt="..." />
-    <div class="card-body text-end">
-        <h5 class="card-title fw-bolder">کیک نوتلا</h5>
-        <p class="card-text">اسپرسودیل+پودرنارگیل+سیرپ نارگیل +نسکافه</p>
-        <h6 class="fw-bolder text-start">
-            <span class="price">56</span>تومان
-        </h6>
-        <a href="#" class="btn btn-danger">افزودن به سبد</a>
-    </div>
-</div>
+    <div class="card mx-auto bg-warning border border-warning mb-3"
+         style="width: 22rem">
+        <img src="~/images/item3.jpg"
+             class="card-img-top"
+             alt="..." />
+        <div class="card-body text-end">
+            <h5 class="card-title fw-bolder">کیک نوتلا</h5>
+            <p class="card-text">اسپرسودیل+پودرنارگیل+سیرپ نارگیل +نسکافه</p>
+            <h6 class="fw-bolder text-start">
+                <span class="price">56</span>تومان
+            </h6>
+            <a href="#" class="btn btn-danger">افزودن به سبد</a>
+        </div>
+    </div>*@

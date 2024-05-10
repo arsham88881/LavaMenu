@@ -111,7 +111,7 @@
         <div class="modal-content text-white custom-glass">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                    اصلاح دسته بندی 
+                    اصلاح دسته بندی
                 </h1>
                 <button type="button"
                         class="btn-close"
@@ -140,6 +140,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-danger"
+                            id="ProductToCategury">
+                        افزودن محصول
+                    </button>
                     <button type="submit"
                             class="btn btn-danger"
                             data-bs-dismiss="modal">
@@ -150,7 +155,99 @@
         </div>
     </div>
 </div>
+<!-- modal Add NUll Product to Categury btn -->
+<div class="modal fade"
+     id="AddProductToCateguryBtnModal"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-glass">
+            <div class="modal-header text-black">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">افزودن‌ محصولات به دسته‌بندی</h1>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="AddProductToCategurySubmit">
+                <div class="modal-body text-black ">
+                    <table class="table table-striped table-hover text-center">
+                        <thead class="table-warning">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">تصویر</th>
+                                <th scope="col">اسم</th>
+                                <th scope="col">انتخاب</th>
 
+                            </tr>
+                        </thead>
+                        <tbody id="TbodyProductToCategury" style="max-height:250px; overflow:scroll;">
+
+                           
+                            @*<tr>
+                                <th scope="row">2</th>
+                                <td>‌ <img src="~/images/ProductImages/26e8befc-2f4b-4287-bf88-5356984ecafd.jpg" alt="test" width="50" height="50"> </td>
+                                <td>شیک ها</td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input float-end ms-0" type="checkbox" name="SelectedProductList">
+                                    </div>
+                                </td>
+
+                            </tr>*@
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        لغو
+                    </button>
+                    <button type="submit" class="btn btn-warning" data-bs-dismiss="modal">اتمام</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal delete btn -->
+<div class="modal fade"
+     id="deleteCateguryBtnModal"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-glass">
+            <div class="modal-header text-black">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">حذف دسته‌بندی</h1>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="HardDeleteCategurySubmit">
+                <div class="modal-body text-black custom-direction">
+                    از عمل حذف مطمئن هستید؟
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-bs-dismiss="modal">
+                        لغو
+                    </button>
+                    <button type="button" class="btn btn-light" id="SoftDeleteCategury" data-bs-dismiss="modal">حذف نرم</button>
+                    <button type="submit" class="btn btn-warning" data-bs-dismiss="modal">حذف سخت</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script>

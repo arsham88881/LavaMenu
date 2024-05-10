@@ -2,6 +2,7 @@
 using LavaMenu.Application.Application.Interfaces.FacadeDesignPattern;
 using LavaMenu.Application.Application.Services.Categuries.command;
 using LavaMenu.Application.Application.Services.Categuries.query;
+using LavaMenu.Application.Application.Services.Products.query;
 using LavaMenu.Application.Common.File;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
@@ -67,11 +68,44 @@ namespace LavaMenu.Application.Application.Services.Categuries.FacadeDesign
             }
         }
         private IEditCateguryService _editCategury;
-        public IEditCateguryService editCateguryService { 
+        public IEditCateguryService editCateguryService
+        {
             get
             {
-                return _editCategury = _editCategury ?? new EditCateguryService(_WorkFile,_db,_loggerEditCategury);
-            } 
+                return _editCategury = _editCategury ?? new EditCateguryService(_WorkFile, _db, _loggerEditCategury);
+            }
+        }
+        private IHardDeleteCateguryService _HardDelete;
+        public IHardDeleteCateguryService HardDeleteCategury
+        {
+            get
+            {
+                return _HardDelete = _HardDelete ?? new HardDeleteCateguryService(_db, _WorkFile);
+            }
+        }
+        private ISoftDeleteCateguryService _softDelete;
+        public ISoftDeleteCateguryService SoftDeleteCategury
+        {
+            get
+            {
+                return _softDelete = _softDelete ?? new SoftDeleteCateguryService(_db, _WorkFile);
+            }
+        }
+        private IGetProductWithNullCateguryService _GetProductNull;
+        public IGetProductWithNullCateguryService ProductWithoutCategury
+        {
+            get
+            {
+                return _GetProductNull = _GetProductNull ?? new GetProductWithNullCateguryService(_db);
+            }
+        }
+        private IAddProductToCategury _AddProductToCategury;
+        public IAddProductToCategury AddProductToCategury
+        {
+            get
+            {
+                return _AddProductToCategury = _AddProductToCategury ?? new AddProductToCategury(_db);
+            }
         }
     }
 }

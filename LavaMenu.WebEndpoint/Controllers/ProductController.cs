@@ -27,8 +27,8 @@ namespace LavaMenu.WebEndpoint.Controllers
         ///GET : api/Product/GetSingleProduct?ProductId={id} 
         public async Task<IActionResult> GetSingleProduct(string ProductId)
         {
-            if(ProductId == null ) { return  BadRequest(); }
-            
+            if (ProductId == null) { return BadRequest(); }
+
             var result = await _Facad.SingleProduct.GetProductAsync(ProductId);
 
             return Ok(result);
@@ -47,9 +47,9 @@ namespace LavaMenu.WebEndpoint.Controllers
                 productPrice = model.productPrice,
                 IsWithDiscount = model.IsWithDiscount,
                 DiscountAmountOption = model.AfterDiscountPrice,
-                CateguryId  = model.CateguryId
+                CateguryId = model.CateguryId
 
-            }, model.file) ;
+            }, model.file);
 
             return Ok(result);
         }
@@ -112,9 +112,18 @@ namespace LavaMenu.WebEndpoint.Controllers
                 DiscountAmountOption = x.DiscountAmountOption,
                 IsActive = x.IsActive,
                 PictureSrc = x.PictureSrc,
-                CateguryId = x.CateguryId,
-                categuryName = x.categury.CateguryName,
+                CateguryId = (x.CateguryId == null) ? 0 : x.CateguryId,
+                categuryName = (x.CateguryId == null) ? "بدون‌دسته‌بندی" : x.categury.CateguryName,
             });
+
+            return Ok(result);
+        }
+
+        /// DELETE : api/Product/DeleteHardProduct
+        [HttpDelete]
+        public async Task<IActionResult> DeleteHardProduct(string ProductId)
+        {
+            var result = await _Facad.HardDelete.DeleteProductAsync(ProductId);
 
             return Ok(result);
         }

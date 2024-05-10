@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="TagHelpers\" />
+    <Folder Include="wwwroot\images\CateguryImages\" />
+    <Folder Include="wwwroot\images\ProductImages\" />
   </ItemGroup>
 
   <ItemGroup>

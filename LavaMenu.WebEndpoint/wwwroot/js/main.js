@@ -1,6 +1,5 @@
 ﻿
 
-
 ///alert in adminLayout page
 function appendLiveAlert(type, message) {
     const wrapper = $('<div> </div>');
@@ -32,7 +31,7 @@ function createCateguryItemAdminPanel(result) {
             `<td class="categuryStatus">${status}</td>`,
             `<td> <button type="button" class="btn activate-categury btn-danger">${statusBtn}</button> </td>`,
             `<td> <button type="button" class="btn btn-warning edit-categury">تصحیح</button> </td>`,
-            `<td> <button type="button" class="btn btn-danger">حذف</button> </td>`
+            `<td> <button type="button" class="btn btn-danger Delete-categury">حذف</button> </td>`
         ].join(''));
         $("#TbodyCateguryAdmin").append(TableRow);
 
@@ -82,11 +81,56 @@ function createCateguryItemAdminPanel(result) {
             });
             request.done(function () { });
         })
+
+        $(TableRow).on("click", "button.Delete-categury", function () {
+            $("#deleteCateguryBtnModal").modal("show");
+            var id = $(this).parent().parent().attr("data-id");
+            $("#HardDeleteCategurySubmit").attr("data-id", id);
+        })
     }
 
 }
 /// activate categury function 
+function GenerateSingleProductWithouCateguryOnModal(result) {
 
+    $("#TbodyProductToCategury").empty();
+
+    for (let i = 0; i < result.length; i++) {
+
+        const TableRow = $("<tr> </tr>");
+
+        TableRow.attr("data-id", result[i].id);
+        TableRow.html([
+            `<th scope="row">${i + 1}</th>`,
+            ` <td>‌ <img src="/${result[i].pictureSrc}" alt="${result[i].name}" width="50" height="50"> </td>`,
+            `<td>${result[i].name}</td>`,
+            `<td>
+               <div class="form-check">
+               <input class="form-check-input float-end ms-0" type="checkbox" value="${result[i].id}" name="SelectedProductList">
+               </div>
+            </td>`
+        ].join(''));
+        $("#TbodyProductToCategury").append(TableRow);
+    }
+}
+function GetAllProductWithoutCategury() {
+    const AllProductWithoutCateguryUrl = "/api/Categury/GetProductToCategury"
+    var request = $.ajax({
+        type: "GET",
+        url: AllProductWithoutCateguryUrl,
+        dataType: false,
+        processData: false,
+        success: function (result) {
+            //console.log(result);
+            GenerateSingleProductWithouCateguryOnModal(result);
+        },
+        error: function (xhr, status, strMessage) {
+            console.log(`status request:  ${status} , str message: ${strMessage}`);
+        },
+    });
+
+    request.done(function () { });
+}
 /// list categuries on admin panel
 function GetAllCateguryAdminPanel() {
 
@@ -139,7 +183,7 @@ function createProductItemAdminPanel(result) {
             `<td class="categuryStatus">${status}</td>`,
             `<td> <button type="button" class="btn activate-product btn-danger">${statusBtn}</button> </td>`,
             `<td> <button type="button" class="btn btn-warning edit-Product">تصحیح</button> </td>`,
-            `<td> <button type="button" class="btn btn-danger">حذف</button> </td>`
+            `<td> <button type="button" class="btn btn-danger delete-Product">حذف</button> </td>`
         ].join(''));
         $("#TbodyProductAdmin").append(TableRow);
 
@@ -170,6 +214,12 @@ function createProductItemAdminPanel(result) {
             var id = $(this).parent().parent().attr("data-id");
             GetSingleProductData(id);
         });
+
+        $(TableRow).on("click", "button.delete-Product", function () {
+            $("#deleteProductBtnModal").modal("show");
+            var id = $(this).parent().parent().attr("data-id");
+            $("#HardDeleteProductSubmit").attr("data-id", id);
+        })
     }
 }
 function GetCateguryOption(ParentID, selectedCategury = null) {
@@ -241,7 +291,7 @@ function GetAllProductAdminPanel() {
         url: GetAllProductUrl,
         type: "GET",
         success: function (result) {
-            console.log(result);
+            //console.log(result);
             createProductItemAdminPanel(result);
         },
         error: function (xhr, status, strMessage) {
@@ -323,6 +373,51 @@ $(document).ready(function () {
         });
         EditCateguryRequest.done(function () { })
     });
+    $("#HardDeleteCategurySubmit").on("submit", async function (e) {
+        e.preventDefault();
+
+        var id = $(this).attr("data-id");
+        var HardDeleteCateguryUrl = `/api/Categury/DeleteHardCategury?CateguryId=${id}`;
+
+        var request = $.ajax({
+            type: "DELETE",
+            url: HardDeleteCateguryUrl,
+            success: function (result) {
+                if (result) {
+                    setTimeout(() => {
+                        GetAllCateguryAdminPanel();
+                    }, 2500);
+                }
+            },
+            error: function (xhr, status, message) {
+                console.log(`status request:  ${status} , str message: ${strmessage}`);
+            }
+        });
+
+        request.done(function () { });
+
+    });
+    $("#SoftDeleteCategury").click(async function (e) {
+        e.preventDefault();
+
+        var id = $(this).parent().parent().attr("data-id");
+        var SoftDeleteCateguryUrl = `/api/Categury/DeleteSoftCategury?CateguryId=${id}`;
+        var request = $.ajax({
+            type: "GET",
+            url: SoftDeleteCateguryUrl,
+            success: function (result) {
+                if (result) {
+                    setTimeout(() => {
+                        GetAllCateguryAdminPanel();
+                    }, 2500);
+                }
+            },
+            error: function (xhr, status, message) {
+                console.log(`status request:  ${status} , str message: ${strmessage}`);
+            }
+        });
+        request.done(function () { });
+    });
 
     /// Product Concept
     $('[data-bs-target="#addProductBtnModal"]').click(GetCateguryOption("addProductSubCategury"));
@@ -366,7 +461,7 @@ $(document).ready(function () {
             data: formdata,
             success: function (result) {
                 console.log(result);
-                appendLiveAlert(result.Type, result.message);
+                appendLiveAlert(result.type, result.message);
 
                 if (result.isSuccess) {
                     setTimeout(() => {
@@ -384,13 +479,12 @@ $(document).ready(function () {
 
     $("#EditProductSubmit").on("submit", async function (e) {
         e.preventDefault();
-        
+
         const EditProductUrl = "/api/Product/EditProduct ";
         const ImgEditProduct = document.querySelector('#editProductImage');
-        //var id = $('#EditCategurySubmit').attr("data-id");
 
         var formdata = new FormData();
-        formdata.append("ProductId", $(this).attr("data-id")); //only problem this part
+        formdata.append("ProductId", $(this).attr("data-id"));
         formdata.append("ProductTitle", $("#editProductTitle").val());
         formdata.append("ProductDescription", $("#editProductDescription").val());
         formdata.append("productPrice", $("#editProductPrice").val());
@@ -408,7 +502,7 @@ $(document).ready(function () {
             data: formdata,
             success: function (result) {
                 //console.log(result);
-                appendLiveAlert(result.Type, result.message);
+                appendLiveAlert(result.type, result.message);
 
                 if (result.isSuccess) {
                     setTimeout(() => {
@@ -424,6 +518,75 @@ $(document).ready(function () {
 
     });
 
+    $("#HardDeleteProductSubmit").on("submit", async function (e) {
+        e.preventDefault();
+        var HardDeleteProductUrl = `/api/Product/DeleteHardProduct?ProductId=${$(this).attr("data-id")}`;
+        var request = $.ajax({
+            type: "DELETE",
+            url: HardDeleteProductUrl,
+            success: function (result) {
+                if (result) {
+                    setTimeout(() => {
+                        GetAllProductAdminPanel();
+                    }, 2500);
+                }
+            },
+            error: function (xhr, status, message) {
+                console.log(`status request:  ${status} , str message: ${strmessage}`);
+            }
+        });
+        request.done(function () { });
+    });
+
+    $("#ProductToCategury").click(function () {
+        var id = $(this).parent().parent().attr("data-id");
+
+        $("#AddProductToCategurySubmit").attr("data-id", id);
+
+        GetAllProductWithoutCategury();
+
+        $("#AddProductToCateguryBtnModal").modal("show");
+    });
+
+
+    // after softDelete Action add null categury Id product to existance categury
+    $("#AddProductToCategurySubmit").on("submit", async function (e) {
+        e.preventDefault();
+
+        var ProductIds = [];
+        $('[name="SelectedProductList"]:checked').each(function () {
+            ProductIds.push(this.value);
+        });
+        var id = $(this).attr("data-id");
+        var AddProductToCateguryUrl = `/api/Categury/PostProductsOnEdit`;
+
+        var sendData = new FormData();
+        sendData.append("ProductIds", JSON.stringify(ProductIds));
+        sendData.append("id", id);
+
+        console.log(ProductIds);
+        console.log(id);
+
+        var request = $.ajax({
+            type: "POST",
+            url: AddProductToCateguryUrl,
+            contentType: false,
+            processData: false,
+            data: sendData,
+            success: function (result) {
+                //console.log(result);
+                appendLiveAlert(result.type, result.message);
+
+                if (result.isSuccess) {
+                    GetAllCateguryAdminPanel();
+                }
+            },
+            error: function (xhr, status, Message) {
+                console.log(`xhr : ${xhr}, status : ${status}, message : ${Message}`);
+            }
+        });
+        request.done(function () { });
+    });
 })
 
 

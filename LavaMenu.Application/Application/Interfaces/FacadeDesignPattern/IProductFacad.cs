@@ -18,5 +18,6 @@ namespace LavaMenu.Application.Application.Interfaces.FacadeDesignPattern
         IGetAllProduct allProduct { get; }
         IGetSingleProductService SingleProduct { get; }
         IEditProductService EditProduct { get; }
+        IHardDeleteProductService HardDelete { get; }
     }
 }

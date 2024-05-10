@@ -4,6 +4,7 @@ using LavaMenu.Application.Application.Services.Categuries.query;
 using LavaMenu.Application.Application.Services.Products.Command;
 using LavaMenu.Application.Application.Services.Products.query;
 using LavaMenu.Application.Common.File;
+using System.Runtime.InteropServices;
 
 namespace LavaMenu.Application.Application.Services.Products.FacadeDesign
 {
@@ -76,6 +77,15 @@ namespace LavaMenu.Application.Application.Services.Products.FacadeDesign
             get
             {
                 return _editProduct = _editProduct ?? new EditProductService(_workFile, _db);
+            }
+        }
+
+        private IHardDeleteProductService _hardDeleteProduct;
+        public IHardDeleteProductService HardDelete
+        {
+            get
+            {
+                return _hardDeleteProduct = _hardDeleteProduct ?? new HardDeleteProductService(_db,_workFile);
             }
         }
     }

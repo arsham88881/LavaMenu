@@ -24,4 +24,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Services\Customer\Command\" />
+    <Folder Include="Application\Services\Customer\FacadDesign\" />
+  </ItemGroup>
+
 </Project>

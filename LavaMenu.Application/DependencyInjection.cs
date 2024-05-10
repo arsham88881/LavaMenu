@@ -2,6 +2,7 @@
 using LavaMenu.Application.Application.Services.Categuries.command;
 using LavaMenu.Application.Application.Services.Categuries.FacadeDesign;
 using LavaMenu.Application.Application.Services.Categuries.query;
+using LavaMenu.Application.Application.Services.Customer.queries;
 using LavaMenu.Application.Application.Services.Products.Command;
 using LavaMenu.Application.Application.Services.Products.FacadeDesign;
 using LavaMenu.Application.Application.Services.Products.query;
@@ -21,6 +22,10 @@ namespace LavaMenu.Application
             services.Add(new ServiceDescriptor(typeof(IChangeCateguryStatus), typeof(ChangeCateguryStatus), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IGetSingleCategury), typeof(GetSingleCategury), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IEditCateguryService), typeof(EditCateguryService), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IHardDeleteCateguryService), typeof(HardDeleteCateguryService), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(ISoftDeleteCateguryService), typeof(SoftDeleteCateguryService), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IGetProductWithNullCateguryService), typeof(GetProductWithNullCateguryService), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IAddProductToCategury), typeof(AddProductToCategury), ServiceLifetime.Scoped));
             /////////////////////////////////////////////////////////product services
             services.Add(new ServiceDescriptor(typeof(IAddProductService), typeof(AddProductService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IAnyProductExistanceService), typeof(AnyProductExistanceService), ServiceLifetime.Scoped));
@@ -28,6 +33,9 @@ namespace LavaMenu.Application
             services.Add(new ServiceDescriptor(typeof(IChangeProductStatus), typeof(ChangeProductStatus), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IGetSingleProductService), typeof(GetSingleProductService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IEditProductService), typeof(EditProductService), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IHardDeleteProductService), typeof(HardDeleteProductService), ServiceLifetime.Scoped));
+            ////////////////////////////////////////////////////////////customer services
+            services.Add(new ServiceDescriptor(typeof(IProductsFromCateguryService), typeof(ProductsFromCateguryService), ServiceLifetime.Scoped));
             //facade design pattern rigestration 
             services.Add(new ServiceDescriptor(typeof(ICateguryFacad), typeof(CateguryFacad), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IProductFacad), typeof(ProductFacad), ServiceLifetime.Scoped));
